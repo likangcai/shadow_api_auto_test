@@ -238,3 +238,12 @@ assert user_id is not None
 1. 执行 Allure 测试报告需要安装 allure 命令行工具
 2. 消息推送需要配置相应的服务参数
 3. 多线程执行可能会影响测试的稳定性，建议根据实际情况调整线程数
+
+## 联系方式
+
+如有问题或建议，欢迎通过 Issue 反馈。
+
+作者：影子
+邮箱：yingzilkq@163.com
+Gitee仓库地址：https://gitee.com/yingzi_shadow/shadow_api_auto_test
+微信公众号：前行的影子
