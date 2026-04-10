@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title id="head-title">report.html</title>
+  <link href="assets\style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <nav class="navbar-top" id="topbar">
+    <div class="container-fluid">
+      <div>
+        <a href="https://github.com/SeldomQA/pytest-xhtml">
+          <img src="https://telegraph-image-cq2.pages.dev/XReport_logo.png" style="height: 2.25rem;">
+          <h1 style="float: right;" id="title">report.html</h1>
+        </a>
+      </div>
+    </div>
+  </nav>
+  <div class="body">
+    <div class="row">
+      <div class="col-12 col-lg-4">
+        <div class="card flex-fill">
+          <div class="card-header" id="environment-header">
+            <h2>Environment</h2>
+          </div>
+          <table id="environment"></table>
+        </div>
+      </div>
+      <!--  Calculate the percentage -->
+      
+      
+      <!--  passed and failed rate cards -->
+      <div class="col-12 col-lg-5 col-xl-2">
+        <div class="card card-above flex-fill">
+          <div class="card-body">
+            <div class="row">
+              <div class="col"><span class="passed d-block">Passed</span>
+                <span class="h3">
+                  15
+                </span>
+              </div>
+              <div class="col-auto">
+                <div class="icon-shape bg-passed text-white text-lg rounded-circle">P</div>
+              </div>
+            </div>
+            <div>
+              <span class="badge bg-soft-secondary text-success">62.50%</span>
+              <span>Pass rate</span>
+            </div>
+          </div>
+        </div>
+        <div class="card card-below flex-fill">
+          <div class="card-body">
+            <div class="row">
+              <div class="col"><span class="failed d-block">Failure</span>
+                <span class="h3">
+                  5
+                </span>
+              </div>
+              <div class="col-auto">
+                <div class="icon icon-shape bg-failure text-white text-lg rounded-circle">F</div>
+              </div>
+            </div>
+            <div>
+              <span class="badge bg-soft-secondary text-warning">20.83%</span>
+              <span>Failure rate</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--  skipped and xfailed rate cards -->
+      <div class="col-12 col-lg-5 col-xl-2">
+        <div class="card card-above flex-fill">
+          <div class="card-body">
+            <div class="row">
+              <div class="col"><span class="skipped d-block">Skipped</span>
+                <span class="h3">
+                  1
+                </span>
+              </div>
+              <div class="col-auto">
+                <div class="icon-shape bg-skipped text-white text-lg rounded-circle">S</div>
+              </div>
+            </div>
+            <div>
+              <span class="badge bg-soft-secondary text-dark">4.17%</span>
+              <span>Skipped rate</span>
+            </div>
+          </div>
+        </div>
+        <div class="card card-below flex-fill">
+          <div class="card-body">
+            <div class="row">
+              <div class="col"><span class="xfailed d-block">Expected failures</span>
+                <span class="h3">
+                  1
+                </span>
+              </div>
+              <div class="col-auto">
+                <div class="icon-shape bg-xfailed text-white text-lg rounded-circle">Xf</div>
+              </div>
+            </div>
+            <div>
+              <span class="badge bg-soft-secondary text-warning">4.17%</span>
+              <span>Expected fail rate</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--  xpassed and xfailed rate cards -->
+      <div class="col-12 col-lg-5 col-xl-2">
+        <div class="card card-above flex-fill">
+          <div class="card-body">
+            <div class="row">
+              <div class="col"><span class="xpassed d-block">Unexpected passes</span>
+                <span class="h3">
+                  1
+                </span>
+              </div>
+              <div class="col-auto">
+                <div class="icon-shape bg-xpassed text-white text-lg rounded-circle">Xp</div>
+              </div>
+            </div>
+            <div>
+              <span class="badge bg-soft-secondary text-info">4.17%</span>
+              <span>Unexpected pass rate</span>
+            </div>
+          </div>
+        </div>
+        <div class="card card-below flex-fill">
+          <div class="card-body">
+            <div class="row">
+              <div class="col"><span class="error d-block">Errors</span>
+                <span class="h3">
+                  1
+                </span>
+              </div>
+              <div class="col-auto">
+                <div class="icon-shape bg-error text-white text-lg rounded-circle">E</div>
+              </div>
+            </div>
+            <div>
+              <span class="badge bg-soft-secondary text-danger">4.17%</span>
+              <span>Error rate</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- TEMPLATES -->
+    <template id="template_environment_row">
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+    </template>
+    <template id="template_results-table__body--empty">
+      <tbody class="results-table-row">
+        <tr id="not-found-message">
+          <td colspan="4">No results found. Check the filters.</td>
+        </tr>
+      </tbody>
+    </template>
+    <template id="template_results-table__tbody">
+      <tbody class="results-table-row">
+        <tr class="collapsible">
+        </tr>
+        <tr class="extras-row">
+          <td class="extra" colspan="4">
+            <div class="extraHTML"></div>
+            <div class="media">
+              <div class="media-container">
+                <div class="media-container__nav--left">&lt;</div>
+                <div class="media-container__viewport">
+                  <img src="" />
+                  <video controls>
+                    <source src="" type="video/mp4">
+                  </video>
+                </div>
+                <div class="media-container__nav--right">&gt;</div>
+              </div>
+              <div class="media__name"></div>
+              <div class="media__counter"></div>
+            </div>
+            <div class="logwrapper">
+              <div class="logexpander"></div>
+              <div class="log"></div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </template>
+    <!-- END TEMPLATES -->
+
+    <div class="summary">
+      <div class="summary__data">
+        <h2>Summary</h2>
+        <div class="additional-summary prefix">
+        </div>
+        <p class="run-count">22 tests took 00:00:12.</p>
+        <p>(Un)check the boxes to filter the results.</p>
+        <div class="summary__reload">
+          <div class="summary__reload__button hidden"
+            onclick="location.reload()">
+            <div>There are still tests running. <br />Reload this page to get the latest results!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="additional-summary">
+    </div>
+    <div class="additional-summary postfix">
+    </div>
+    <div class="card flex-fill">
+      <div class="summary__spacer">
+        <div class="controls">
+          <div class="filters">
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="failed"
+              >
+            <span class="failed">5 Failed,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="passed"
+              >
+            <span class="passed">15 Passed,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="skipped"
+              >
+            <span class="skipped">1 Skipped,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="xfailed"
+              >
+            <span class="xfailed">1 Expected failures,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="xpassed"
+              >
+            <span class="xpassed">1 Unexpected passes,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="error"
+              >
+            <span class="error">1 Errors,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="rerun"
+              disabled>
+            <span class="rerun">0 Reruns</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="retried"
+              disabled>
+            <span class="retried">0 Retried,</span>
+          </div>
+          <div class="collapse">
+            <button class="show-summary" id="hide_all_details">Show summary</button>
+            <button class="show-details" id="show_all_details">Show details</button>
+          </div>
+        </div>
+      </div>
+      <table id="results-table">
+        <thead id="results-table-head">
+          <tr>
+            <th class="sortable" data-column-type="result">Result</th>
+            <th class="sortable" data-column-type="testId">Test</th>
+            <th class="sortable" data-column-type="duration">Duration</th>
+            <th>Links</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+  <footer>
+    <div id="data-container" data-jsonblob="{&#34;environment&#34;: {&#34;Python&#34;: &#34;3.13.5&#34;, &#34;Platform&#34;: &#34;Windows-10-10.0.19045-SP0&#34;, &#34;Packages&#34;: {&#34;pytest&#34;: &#34;9.0.3&#34;, &#34;pluggy&#34;: &#34;1.6.0&#34;}, &#34;Plugins&#34;: {&#34;allure-pytest&#34;: &#34;2.15.3&#34;, &#34;anyio&#34;: &#34;4.13.0&#34;, &#34;metadata&#34;: &#34;3.1.1&#34;, &#34;xdist&#34;: &#34;3.8.0&#34;, &#34;xhtml&#34;: &#34;0.4.0&#34;}}, &#34;tests&#34;: {&#34;test_cases/test_data_driven.py::TestDataDriven::test_from_yaml[test_case0]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;test_cases/test_data_driven.py::TestDataDriven::test_from_yaml[test_case0]&#34;, &#34;duration&#34;: &#34;00:00:03&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;test_cases/test_data_driven.py::TestDataDriven::test_from_yaml[test_case0]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:03&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stdout setup -----------------------------\n2026-04-10 18:04:08.521 | INFO     | common.log:info:27 - Test case setup\n\n----------------------------- Captured stdout call -----------------------------\n2026-04-10 18:04:08.561 | INFO     | common.log:info:27 - Sending get request to /get\n2026-04-10 18:04:08.562 | INFO     | common.log:info:27 - Request data: {&amp;#x27;params&amp;#x27;: {&amp;#x27;key&amp;#x27;: &amp;#x27;value&amp;#x27;}, &amp;#x27;json&amp;#x27;: {}, &amp;#x27;headers&amp;#x27;: {}}\n2026-04-10 18:04:11.143 | INFO     | common.log:info:27 - Response status code: 200\n2026-04-10 18:04:11.144 | INFO     | common.log:info:27 - Response content: {\n  &amp;quot;args&amp;quot;: {\n    &amp;quot;key&amp;quot;: &amp;quot;value&amp;quot;\n  }, \n  &amp;quot;headers&amp;quot;: {\n    &amp;quot;Accept&amp;quot;: &amp;quot;*/*&amp;quot;, \n    &amp;quot;Accept-Encoding&amp;quot;: &amp;quot;gzip, deflate&amp;quot;, \n    &amp;quot;Host&amp;quot;: &amp;quot;www.httpbin.org&amp;quot;, \n    &amp;quot;User-Agent&amp;quot;: &amp;quot;python-httpx/0.28.1&amp;quot;, \n    &amp;quot;X-Amzn-Trace-Id&amp;quot;: &amp;quot;Root=1-69d8cb1b-3f368e1775fb7b552db5bc2d&amp;quot;\n  }, \n  &amp;quot;origin&amp;quot;: &amp;quot;182.150.44.245&amp;quot;, \n  &amp;quot;url&amp;quot;: &amp;quot;https://www.httpbin.org/get?key=value&amp;quot;\n}\n\n--------------------------- Captured stdout teardown ---------------------------\n2026-04-10 18:04:11.167 | INFO     | common.log:info:27 - Test case teardown\n&#34;}], &#34;test_cases/test_data_driven.py::TestDataDriven::test_from_yaml[test_case1]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;test_cases/test_data_driven.py::TestDataDriven::test_from_yaml[test_case1]&#34;, &#34;duration&#34;: &#34;272 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;test_cases/test_data_driven.py::TestDataDriven::test_from_yaml[test_case1]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;272 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stdout setup -----------------------------\n2026-04-10 18:04:11.172 | INFO     | common.log:info:27 - Test case setup\n\n----------------------------- Captured stdout call -----------------------------\n2026-04-10 18:04:11.174 | INFO     | common.log:info:27 - Sending post request to /post\n2026-04-10 18:04:11.174 | INFO     | common.log:info:27 - Request data: {&amp;#x27;params&amp;#x27;: {}, &amp;#x27;json&amp;#x27;: {&amp;#x27;name&amp;#x27;: &amp;#x27;Test User&amp;#x27;, &amp;#x27;email&amp;#x27;: &amp;#x27;test@example.com&amp;#x27;}, &amp;#x27;headers&amp;#x27;: {}}\n2026-04-10 18:04:11.440 | INFO     | common.log:info:27 - Response status code: 200\n2026-04-10 18:04:11.441 | INFO     | common.log:info:27 - Response content: {\n  &amp;quot;args&amp;quot;: {}, \n  &amp;quot;data&amp;quot;: &amp;quot;{\\&amp;quot;name\\&amp;quot;:\\&amp;quot;Test User\\&amp;quot;,\\&amp;quot;email\\&amp;quot;:\\&amp;quot;test@example.com\\&amp;quot;}&amp;quot;, \n  &amp;quot;files&amp;quot;: {}, \n  &amp;quot;form&amp;quot;: {}, \n  &amp;quot;headers&amp;quot;: {\n    &amp;quot;Accept&amp;quot;: &amp;quot;*/*&amp;quot;, \n    &amp;quot;Accept-Encoding&amp;quot;: &amp;quot;gzip, deflate&amp;quot;, \n    &amp;quot;Content-Length&amp;quot;: &amp;quot;47&amp;quot;, \n    &amp;quot;Content-Type&amp;quot;: &amp;quot;application/json&amp;quot;, \n    &amp;quot;Host&amp;quot;: &amp;quot;www.httpbin.org&amp;quot;, \n    &amp;quot;User-Agent&amp;quot;: &amp;quot;python-httpx/0.28.1&amp;quot;, \n    &amp;quot;X-Amzn-Trace-Id&amp;quot;: &amp;quot;Root=1-69d8cb1b-5940132069ceef666556ca43&amp;quot;\n  }, \n  &amp;quot;json&amp;quot;: {\n    &amp;quot;email&amp;quot;: &amp;quot;test@example.com&amp;quot;, \n    &amp;quot;name&amp;quot;: &amp;quot;Test User&amp;quot;\n  }, \n  &amp;quot;origin&amp;quot;: &amp;quot;182.150.44.245&amp;quot;, \n  &amp;quot;url&amp;quot;: &amp;quot;https://www.httpbin.org/post&amp;quot;\n}\n\n--------------------------- Captured stdout teardown ---------------------------\n2026-04-10 18:04:11.443 | INFO     | common.log:info:27 - Test case teardown\n&#34;}], &#34;test_cases/test_data_driven.py::TestDataDriven::test_from_yaml[test_case2]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;test_cases/test_data_driven.py::TestDataDriven::test_from_yaml[test_case2]&#34;, &#34;duration&#34;: &#34;415 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;test_cases/test_data_driven.py::TestDataDriven::test_from_yaml[test_case2]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;415 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stdout setup -----------------------------\n2026-04-10 18:04:11.448 | INFO     | common.log:info:27 - Test case setup\n\n----------------------------- Captured stdout call -----------------------------\n2026-04-10 18:04:11.449 | INFO     | common.log:info:27 - Sending put request to /put\n2026-04-10 18:04:11.449 | INFO     | common.log:info:27 - Request data: {&amp;#x27;params&amp;#x27;: {}, &amp;#x27;json&amp;#x27;: {&amp;#x27;name&amp;#x27;: &amp;#x27;Updated User&amp;#x27;}, &amp;#x27;headers&amp;#x27;: {}}\n2026-04-10 18:04:11.859 | INFO     | common.log:info:27 - Response status code: 200\n2026-04-10 18:04:11.859 | INFO     | common.log:info:27 - Response content: {\n  &amp;quot;args&amp;quot;: {}, \n  &amp;quot;data&amp;quot;: &amp;quot;{\\&amp;quot;name\\&amp;quot;:\\&amp;quot;Updated User\\&amp;quot;}&amp;quot;, \n  &amp;quot;files&amp;quot;: {}, \n  &amp;quot;form&amp;quot;: {}, \n  &amp;quot;headers&amp;quot;: {\n    &amp;quot;Accept&amp;quot;: &amp;quot;*/*&amp;quot;, \n    &amp;quot;Accept-Encoding&amp;quot;: &amp;quot;gzip, deflate&amp;quot;, \n    &amp;quot;Content-Length&amp;quot;: &amp;quot;23&amp;quot;, \n    &amp;quot;Content-Type&amp;quot;: &amp;quot;application/json&amp;quot;, \n    &amp;quot;Host&amp;quot;: &amp;quot;www.httpbin.org&amp;quot;, \n    &amp;quot;User-Agent&amp;quot;: &amp;quot;python-httpx/0.28.1&amp;quot;, \n    &amp;quot;X-Amzn-Trace-Id&amp;quot;: &amp;quot;Root=1-69d8cb1b-24bda7c414c666b42a5ada2f&amp;quot;\n  }, \n  &amp;quot;json&amp;quot;: {\n    &amp;quot;name&amp;quot;: &amp;quot;Updated User&amp;quot;\n  }, \n  &amp;quot;origin&amp;quot;: &amp;quot;182.150.44.245&amp;quot;, \n  &amp;quot;url&amp;quot;: &amp;quot;https://www.httpbin.org/put&amp;quot;\n}\n\n--------------------------- Captured stdout teardown ---------------------------\n2026-04-10 18:04:11.861 | INFO     | common.log:info:27 - Test case teardown\n&#34;}], &#34;test_cases/test_data_driven.py::TestDataDriven::test_from_yaml[test_case3]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;test_cases/test_data_driven.py::TestDataDriven::test_from_yaml[test_case3]&#34;, &#34;duration&#34;: &#34;313 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;test_cases/test_data_driven.py::TestDataDriven::test_from_yaml[test_case3]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;313 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stdout setup -----------------------------\n2026-04-10 18:04:11.867 | INFO     | common.log:info:27 - Test case setup\n\n----------------------------- Captured stdout call -----------------------------\n2026-04-10 18:04:11.868 | INFO     | common.log:info:27 - Sending delete request to /delete\n2026-04-10 18:04:11.869 | INFO     | common.log:info:27 - Request data: {&amp;#x27;params&amp;#x27;: {}, &amp;#x27;json&amp;#x27;: {}, &amp;#x27;headers&amp;#x27;: {}}\n2026-04-10 18:04:12.174 | INFO     | common.log:info:27 - Response status code: 200\n2026-04-10 18:04:12.174 | INFO     | common.log:info:27 - Response content: {\n  &amp;quot;args&amp;quot;: {}, \n  &amp;quot;data&amp;quot;: &amp;quot;&amp;quot;, \n  &amp;quot;files&amp;quot;: {}, \n  &amp;quot;form&amp;quot;: {}, \n  &amp;quot;headers&amp;quot;: {\n    &amp;quot;Accept&amp;quot;: &amp;quot;*/*&amp;quot;, \n    &amp;quot;Accept-Encoding&amp;quot;: &amp;quot;gzip, deflate&amp;quot;, \n    &amp;quot;Host&amp;quot;: &amp;quot;www.httpbin.org&amp;quot;, \n    &amp;quot;User-Agent&amp;quot;: &amp;quot;python-httpx/0.28.1&amp;quot;, \n    &amp;quot;X-Amzn-Trace-Id&amp;quot;: &amp;quot;Root=1-69d8cb1c-1a7197470815e8655f05ba75&amp;quot;\n  }, \n  &amp;quot;json&amp;quot;: null, \n  &amp;quot;origin&amp;quot;: &amp;quot;182.150.44.245&amp;quot;, \n  &amp;quot;url&amp;quot;: &amp;quot;https://www.httpbin.org/delete&amp;quot;\n}\n\n--------------------------- Captured stdout teardown ---------------------------\n2026-04-10 18:04:12.176 | INFO     | common.log:info:27 - Test case teardown\n&#34;}], &#34;test_cases/test_data_driven.py::TestDataDriven::test_from_json[test_case0]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;test_cases/test_data_driven.py::TestDataDriven::test_from_json[test_case0]&#34;, &#34;duration&#34;: &#34;272 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;test_cases/test_data_driven.py::TestDataDriven::test_from_json[test_case0]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;272 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stdout setup -----------------------------\n2026-04-10 18:04:12.183 | INFO     | common.log:info:27 - Test case setup\n\n----------------------------- Captured stdout call -----------------------------\n2026-04-10 18:04:12.185 | INFO     | common.log:info:27 - Sending get request to /get\n2026-04-10 18:04:12.185 | INFO     | common.log:info:27 - Request data: {&amp;#x27;params&amp;#x27;: {&amp;#x27;key&amp;#x27;: &amp;#x27;value&amp;#x27;}, &amp;#x27;json&amp;#x27;: {}, &amp;#x27;headers&amp;#x27;: {}}\n2026-04-10 18:04:12.451 | INFO     | common.log:info:27 - Response status code: 200\n2026-04-10 18:04:12.451 | INFO     | common.log:info:27 - Response content: {\n  &amp;quot;args&amp;quot;: {\n    &amp;quot;key&amp;quot;: &amp;quot;value&amp;quot;\n  }, \n  &amp;quot;headers&amp;quot;: {\n    &amp;quot;Accept&amp;quot;: &amp;quot;*/*&amp;quot;, \n    &amp;quot;Accept-Encoding&amp;quot;: &amp;quot;gzip, deflate&amp;quot;, \n    &amp;quot;Host&amp;quot;: &amp;quot;www.httpbin.org&amp;quot;, \n    &amp;quot;User-Agent&amp;quot;: &amp;quot;python-httpx/0.28.1&amp;quot;, \n    &amp;quot;X-Amzn-Trace-Id&amp;quot;: &amp;quot;Root=1-69d8cb1c-1e2790274f54b9fb488bbd9b&amp;quot;\n  }, \n  &amp;quot;origin&amp;quot;: &amp;quot;182.150.44.245&amp;quot;, \n  &amp;quot;url&amp;quot;: &amp;quot;https://www.httpbin.org/get?key=value&amp;quot;\n}\n\n--------------------------- Captured stdout teardown ---------------------------\n2026-04-10 18:04:12.453 | INFO     | common.log:info:27 - Test case teardown\n&#34;}], &#34;test_cases/test_data_driven.py::TestDataDriven::test_from_json[test_case1]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;test_cases/test_data_driven.py::TestDataDriven::test_from_json[test_case1]&#34;, &#34;duration&#34;: &#34;272 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;test_cases/test_data_driven.py::TestDataDriven::test_from_json[test_case1]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;272 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stdout setup -----------------------------\n2026-04-10 18:04:12.458 | INFO     | common.log:info:27 - Test case setup\n\n----------------------------- Captured stdout call -----------------------------\n2026-04-10 18:04:12.459 | INFO     | common.log:info:27 - Sending post request to /post\n2026-04-10 18:04:12.459 | INFO     | common.log:info:27 - Request data: {&amp;#x27;params&amp;#x27;: {}, &amp;#x27;json&amp;#x27;: {&amp;#x27;name&amp;#x27;: &amp;#x27;Test User&amp;#x27;, &amp;#x27;email&amp;#x27;: &amp;#x27;test@example.com&amp;#x27;}, &amp;#x27;headers&amp;#x27;: {}}\n2026-04-10 18:04:12.725 | INFO     | common.log:info:27 - Response status code: 200\n2026-04-10 18:04:12.726 | INFO     | common.log:info:27 - Response content: {\n  &amp;quot;args&amp;quot;: {}, \n  &amp;quot;data&amp;quot;: &amp;quot;{\\&amp;quot;name\\&amp;quot;:\\&amp;quot;Test User\\&amp;quot;,\\&amp;quot;email\\&amp;quot;:\\&amp;quot;test@example.com\\&amp;quot;}&amp;quot;, \n  &amp;quot;files&amp;quot;: {}, \n  &amp;quot;form&amp;quot;: {}, \n  &amp;quot;headers&amp;quot;: {\n    &amp;quot;Accept&amp;quot;: &amp;quot;*/*&amp;quot;, \n    &amp;quot;Accept-Encoding&amp;quot;: &amp;quot;gzip, deflate&amp;quot;, \n    &amp;quot;Content-Length&amp;quot;: &amp;quot;47&amp;quot;, \n    &amp;quot;Content-Type&amp;quot;: &amp;quot;application/json&amp;quot;, \n    &amp;quot;Host&amp;quot;: &amp;quot;www.httpbin.org&amp;quot;, \n    &amp;quot;User-Agent&amp;quot;: &amp;quot;python-httpx/0.28.1&amp;quot;, \n    &amp;quot;X-Amzn-Trace-Id&amp;quot;: &amp;quot;Root=1-69d8cb1c-1acad0dd6939bd4b0899e97e&amp;quot;\n  }, \n  &amp;quot;json&amp;quot;: {\n    &amp;quot;email&amp;quot;: &amp;quot;test@example.com&amp;quot;, \n    &amp;quot;name&amp;quot;: &amp;quot;Test User&amp;quot;\n  }, \n  &amp;quot;origin&amp;quot;: &amp;quot;182.150.44.245&amp;quot;, \n  &amp;quot;url&amp;quot;: &amp;quot;https://www.httpbin.org/post&amp;quot;\n}\n\n--------------------------- Captured stdout teardown ---------------------------\n2026-04-10 18:04:12.728 | INFO     | common.log:info:27 - Test case teardown\n&#34;}], &#34;test_cases/test_data_driven.py::TestDataDriven::test_from_json[test_case2]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;test_cases/test_data_driven.py::TestDataDriven::test_from_json[test_case2]&#34;, &#34;duration&#34;: &#34;279 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;test_cases/test_data_driven.py::TestDataDriven::test_from_json[test_case2]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;279 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stdout setup -----------------------------\n2026-04-10 18:04:12.734 | INFO     | common.log:info:27 - Test case setup\n\n----------------------------- Captured stdout call -----------------------------\n2026-04-10 18:04:12.736 | INFO     | common.log:info:27 - Sending put request to /put\n2026-04-10 18:04:12.736 | INFO     | common.log:info:27 - Request data: {&amp;#x27;params&amp;#x27;: {}, &amp;#x27;json&amp;#x27;: {&amp;#x27;name&amp;#x27;: &amp;#x27;Updated User&amp;#x27;}, &amp;#x27;headers&amp;#x27;: {}}\n2026-04-10 18:04:13.004 | INFO     | common.log:info:27 - Response status code: 200\n2026-04-10 18:04:13.005 | INFO     | common.log:info:27 - Response content: {\n  &amp;quot;args&amp;quot;: {}, \n  &amp;quot;data&amp;quot;: &amp;quot;{\\&amp;quot;name\\&amp;quot;:\\&amp;quot;Updated User\\&amp;quot;}&amp;quot;, \n  &amp;quot;files&amp;quot;: {}, \n  &amp;quot;form&amp;quot;: {}, \n  &amp;quot;headers&amp;quot;: {\n    &amp;quot;Accept&amp;quot;: &amp;quot;*/*&amp;quot;, \n    &amp;quot;Accept-Encoding&amp;quot;: &amp;quot;gzip, deflate&amp;quot;, \n    &amp;quot;Content-Length&amp;quot;: &amp;quot;23&amp;quot;, \n    &amp;quot;Content-Type&amp;quot;: &amp;quot;application/json&amp;quot;, \n    &amp;quot;Host&amp;quot;: &amp;quot;www.httpbin.org&amp;quot;, \n    &amp;quot;User-Agent&amp;quot;: &amp;quot;python-httpx/0.28.1&amp;quot;, \n    &amp;quot;X-Amzn-Trace-Id&amp;quot;: &amp;quot;Root=1-69d8cb1d-129e301740d490a90637bc91&amp;quot;\n  }, \n  &amp;quot;json&amp;quot;: {\n    &amp;quot;name&amp;quot;: &amp;quot;Updated User&amp;quot;\n  }, \n  &amp;quot;origin&amp;quot;: &amp;quot;182.150.44.245&amp;quot;, \n  &amp;quot;url&amp;quot;: &amp;quot;https://www.httpbin.org/put&amp;quot;\n}\n\n--------------------------- Captured stdout teardown ---------------------------\n2026-04-10 18:04:13.010 | INFO     | common.log:info:27 - Test case teardown\n&#34;}], &#34;test_cases/test_data_driven.py::TestDataDriven::test_from_json[test_case3]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;test_cases/test_data_driven.py::TestDataDriven::test_from_json[test_case3]&#34;, &#34;duration&#34;: &#34;709 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;test_cases/test_data_driven.py::TestDataDriven::test_from_json[test_case3]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;709 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stdout setup -----------------------------\n2026-04-10 18:04:13.019 | INFO     | common.log:info:27 - Test case setup\n\n----------------------------- Captured stdout call -----------------------------\n2026-04-10 18:04:13.024 | INFO     | common.log:info:27 - Sending delete request to /delete\n2026-04-10 18:04:13.025 | INFO     | common.log:info:27 - Request data: {&amp;#x27;params&amp;#x27;: {}, &amp;#x27;json&amp;#x27;: {}, &amp;#x27;headers&amp;#x27;: {}}\n2026-04-10 18:04:13.720 | INFO     | common.log:info:27 - Response status code: 200\n2026-04-10 18:04:13.720 | INFO     | common.log:info:27 - Response content: {\n  &amp;quot;args&amp;quot;: {}, \n  &amp;quot;data&amp;quot;: &amp;quot;&amp;quot;, \n  &amp;quot;files&amp;quot;: {}, \n  &amp;quot;form&amp;quot;: {}, \n  &amp;quot;headers&amp;quot;: {\n    &amp;quot;Accept&amp;quot;: &amp;quot;*/*&amp;quot;, \n    &amp;quot;Accept-Encoding&amp;quot;: &amp;quot;gzip, deflate&amp;quot;, \n    &amp;quot;Host&amp;quot;: &amp;quot;www.httpbin.org&amp;quot;, \n    &amp;quot;User-Agent&amp;quot;: &amp;quot;python-httpx/0.28.1&amp;quot;, \n    &amp;quot;X-Amzn-Trace-Id&amp;quot;: &amp;quot;Root=1-69d8cb1d-73be546a413cc2e515eb4500&amp;quot;\n  }, \n  &amp;quot;json&amp;quot;: null, \n  &amp;quot;origin&amp;quot;: &amp;quot;182.150.44.245&amp;quot;, \n  &amp;quot;url&amp;quot;: &amp;quot;https://www.httpbin.org/delete&amp;quot;\n}\n\n--------------------------- Captured stdout teardown ---------------------------\n2026-04-10 18:04:13.723 | INFO     | common.log:info:27 - Test case teardown\n&#34;}], &#34;test_cases/test_example.py::TestExample::test_get_user_info&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Failed&#34;, &#34;testId&#34;: &#34;test_cases/test_example.py::TestExample::test_get_user_info&#34;, &#34;duration&#34;: &#34;300 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Failed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;test_cases/test_example.py::TestExample::test_get_user_info&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;300 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;self = &amp;lt;shadow_api_auto_test.test_cases.test_example.TestExample object at 0x000001D71282A0D0&amp;gt;\n\n    @allure.feature(&amp;quot;Example API&amp;quot;)\n    @allure.story(&amp;quot;Get user info&amp;quot;)\n    def test_get_user_info(self):\n        response = self.send_request(&amp;#x27;get&amp;#x27;, &amp;#x27;/api/users/1&amp;#x27;)\n&amp;gt;       assert response.status_code == 200\nE       assert 404 == 200\nE        +  where 404 = &amp;lt;Response [404 NOT FOUND]&amp;gt;.status_code\n\ntest_cases\\test_example.py:10: AssertionError\n\n---------------------------- Captured stdout setup -----------------------------\n2026-04-10 18:04:13.733 | INFO     | common.log:info:27 - Test case setup\n\n----------------------------- Captured stdout call -----------------------------\n2026-04-10 18:04:13.735 | INFO     | common.log:info:27 - Sending get request to /api/users/1\n2026-04-10 18:04:13.735 | INFO     | common.log:info:27 - Request data: {}\n2026-04-10 18:04:14.001 | INFO     | common.log:info:27 - Response status code: 404\n2026-04-10 18:04:14.001 | INFO     | common.log:info:27 - Response content: &amp;lt;!DOCTYPE HTML PUBLIC &amp;quot;-//W3C//DTD HTML 3.2 Final//EN&amp;quot;&amp;gt;\n&amp;lt;title&amp;gt;404 Not Found&amp;lt;/title&amp;gt;\n&amp;lt;h1&amp;gt;Not Found&amp;lt;/h1&amp;gt;\n&amp;lt;p&amp;gt;The requested URL was not found on the server.  If you entered the URL manually please check your spelling and try again.&amp;lt;/p&amp;gt;\n\n--------------------------- Captured stdout teardown ---------------------------\n2026-04-10 18:04:15.260 | INFO     | common.log:info:27 - Test case teardown\n&#34;}], &#34;test_cases/test_example.py::TestExample::test_update_user_info&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Failed&#34;, &#34;testId&#34;: &#34;test_cases/test_example.py::TestExample::test_update_user_info&#34;, &#34;duration&#34;: &#34;4 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Failed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;test_cases/test_example.py::TestExample::test_update_user_info&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;4 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;self = &amp;lt;shadow_api_auto_test.test_cases.test_example.TestExample object at 0x000001D712829F90&amp;gt;\n\n    @allure.feature(&amp;quot;Example API&amp;quot;)\n    @allure.story(&amp;quot;Update user info&amp;quot;)\n    def test_update_user_info(self):\n        user_id = self.get_variable(&amp;#x27;user_id&amp;#x27;)\n&amp;gt;       assert user_id is not None\nE       assert None is not None\n\ntest_cases\\test_example.py:19: AssertionError\n\n---------------------------- Captured stdout setup -----------------------------\n2026-04-10 18:04:15.266 | INFO     | common.log:info:27 - Test case setup\n--------------------------- Captured stdout teardown ---------------------------\n2026-04-10 18:04:15.276 | INFO     | common.log:info:27 - Test case teardown\n&#34;}], &#34;test_cases/test_httpbin.py::TestHttpbin::test_get_request&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;test_cases/test_httpbin.py::TestHttpbin::test_get_request&#34;, &#34;duration&#34;: &#34;272 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;test_cases/test_httpbin.py::TestHttpbin::test_get_request&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;272 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stdout setup -----------------------------\n2026-04-10 18:04:15.283 | INFO     | common.log:info:27 - Test case setup\n\n----------------------------- Captured stdout call -----------------------------\n2026-04-10 18:04:15.284 | INFO     | common.log:info:27 - Sending get request to /get\n2026-04-10 18:04:15.285 | INFO     | common.log:info:27 - Request data: {&amp;#x27;params&amp;#x27;: {&amp;#x27;key&amp;#x27;: &amp;#x27;value&amp;#x27;}}\n2026-04-10 18:04:15.551 | INFO     | common.log:info:27 - Response status code: 200\n2026-04-10 18:04:15.551 | INFO     | common.log:info:27 - Response content: {\n  &amp;quot;args&amp;quot;: {\n    &amp;quot;key&amp;quot;: &amp;quot;value&amp;quot;\n  }, \n  &amp;quot;headers&amp;quot;: {\n    &amp;quot;Accept&amp;quot;: &amp;quot;*/*&amp;quot;, \n    &amp;quot;Accept-Encoding&amp;quot;: &amp;quot;gzip, deflate&amp;quot;, \n    &amp;quot;Host&amp;quot;: &amp;quot;www.httpbin.org&amp;quot;, \n    &amp;quot;User-Agent&amp;quot;: &amp;quot;python-httpx/0.28.1&amp;quot;, \n    &amp;quot;X-Amzn-Trace-Id&amp;quot;: &amp;quot;Root=1-69d8cb1f-79c78e8a76a9c2916166fea4&amp;quot;\n  }, \n  &amp;quot;origin&amp;quot;: &amp;quot;182.150.44.245&amp;quot;, \n  &amp;quot;url&amp;quot;: &amp;quot;https://www.httpbin.org/get?key=value&amp;quot;\n}\n\n--------------------------- Captured stdout teardown ---------------------------\n2026-04-10 18:04:15.552 | INFO     | common.log:info:27 - Test case teardown\n&#34;}], &#34;test_cases/test_httpbin.py::TestHttpbin::test_post_request&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;test_cases/test_httpbin.py::TestHttpbin::test_post_request&#34;, &#34;duration&#34;: &#34;265 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;test_cases/test_httpbin.py::TestHttpbin::test_post_request&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;265 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stdout setup -----------------------------\n2026-04-10 18:04:15.559 | INFO     | common.log:info:27 - Test case setup\n\n----------------------------- Captured stdout call -----------------------------\n2026-04-10 18:04:15.561 | INFO     | common.log:info:27 - Sending post request to /post\n2026-04-10 18:04:15.561 | INFO     | common.log:info:27 - Request data: {&amp;#x27;json&amp;#x27;: {&amp;#x27;name&amp;#x27;: &amp;#x27;Test User&amp;#x27;, &amp;#x27;email&amp;#x27;: &amp;#x27;QZdiFgii@gmail.com&amp;#x27;, &amp;#x27;age&amp;#x27;: 29}}\n2026-04-10 18:04:15.819 | INFO     | common.log:info:27 - Response status code: 200\n2026-04-10 18:04:15.820 | INFO     | common.log:info:27 - Response content: {\n  &amp;quot;args&amp;quot;: {}, \n  &amp;quot;data&amp;quot;: &amp;quot;{\\&amp;quot;name\\&amp;quot;:\\&amp;quot;Test User\\&amp;quot;,\\&amp;quot;email\\&amp;quot;:\\&amp;quot;QZdiFgii@gmail.com\\&amp;quot;,\\&amp;quot;age\\&amp;quot;:29}&amp;quot;, \n  &amp;quot;files&amp;quot;: {}, \n  &amp;quot;form&amp;quot;: {}, \n  &amp;quot;headers&amp;quot;: {\n    &amp;quot;Accept&amp;quot;: &amp;quot;*/*&amp;quot;, \n    &amp;quot;Accept-Encoding&amp;quot;: &amp;quot;gzip, deflate&amp;quot;, \n    &amp;quot;Content-Length&amp;quot;: &amp;quot;58&amp;quot;, \n    &amp;quot;Content-Type&amp;quot;: &amp;quot;application/json&amp;quot;, \n    &amp;quot;Host&amp;quot;: &amp;quot;www.httpbin.org&amp;quot;, \n    &amp;quot;User-Agent&amp;quot;: &amp;quot;python-httpx/0.28.1&amp;quot;, \n    &amp;quot;X-Amzn-Trace-Id&amp;quot;: &amp;quot;Root=1-69d8cb20-7c6225212c7e66e95692940a&amp;quot;\n  }, \n  &amp;quot;json&amp;quot;: {\n    &amp;quot;age&amp;quot;: 29, \n    &amp;quot;email&amp;quot;: &amp;quot;QZdiFgii@gmail.com&amp;quot;, \n    &amp;quot;name&amp;quot;: &amp;quot;Test User&amp;quot;\n  }, \n  &amp;quot;origin&amp;quot;: &amp;quot;182.150.44.245&amp;quot;, \n  &amp;quot;url&amp;quot;: &amp;quot;https://www.httpbin.org/post&amp;quot;\n}\n\n2026-04-10 18:04:15.820 | INFO     | common.log:info:27 - Extracted variable: email = QZdiFgii@gmail.com\n--------------------------- Captured stdout teardown ---------------------------\n2026-04-10 18:04:15.822 | INFO     | common.log:info:27 - Test case teardown\n&#34;}], &#34;test_cases/test_httpbin.py::TestHttpbin::test_put_request&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;test_cases/test_httpbin.py::TestHttpbin::test_put_request&#34;, &#34;duration&#34;: &#34;276 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;test_cases/test_httpbin.py::TestHttpbin::test_put_request&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;276 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stdout setup -----------------------------\n2026-04-10 18:04:15.829 | INFO     | common.log:info:27 - Test case setup\n\n----------------------------- Captured stdout call -----------------------------\n2026-04-10 18:04:15.830 | INFO     | common.log:info:27 - Sending put request to /put\n2026-04-10 18:04:15.831 | INFO     | common.log:info:27 - Request data: {&amp;#x27;json&amp;#x27;: {&amp;#x27;name&amp;#x27;: &amp;#x27;Updated User&amp;#x27;, &amp;#x27;email&amp;#x27;: &amp;#x27;QZdiFgii@gmail.com&amp;#x27;}}\n2026-04-10 18:04:16.097 | INFO     | common.log:info:27 - Response status code: 200\n2026-04-10 18:04:16.097 | INFO     | common.log:info:27 - Response content: {\n  &amp;quot;args&amp;quot;: {}, \n  &amp;quot;data&amp;quot;: &amp;quot;{\\&amp;quot;name\\&amp;quot;:\\&amp;quot;Updated User\\&amp;quot;,\\&amp;quot;email\\&amp;quot;:\\&amp;quot;QZdiFgii@gmail.com\\&amp;quot;}&amp;quot;, \n  &amp;quot;files&amp;quot;: {}, \n  &amp;quot;form&amp;quot;: {}, \n  &amp;quot;headers&amp;quot;: {\n    &amp;quot;Accept&amp;quot;: &amp;quot;*/*&amp;quot;, \n    &amp;quot;Accept-Encoding&amp;quot;: &amp;quot;gzip, deflate&amp;quot;, \n    &amp;quot;Content-Length&amp;quot;: &amp;quot;52&amp;quot;, \n    &amp;quot;Content-Type&amp;quot;: &amp;quot;application/json&amp;quot;, \n    &amp;quot;Host&amp;quot;: &amp;quot;www.httpbin.org&amp;quot;, \n    &amp;quot;User-Agent&amp;quot;: &amp;quot;python-httpx/0.28.1&amp;quot;, \n    &amp;quot;X-Amzn-Trace-Id&amp;quot;: &amp;quot;Root=1-69d8cb20-4449705024fc73c7514ea1f4&amp;quot;\n  }, \n  &amp;quot;json&amp;quot;: {\n    &amp;quot;email&amp;quot;: &amp;quot;QZdiFgii@gmail.com&amp;quot;, \n    &amp;quot;name&amp;quot;: &amp;quot;Updated User&amp;quot;\n  }, \n  &amp;quot;origin&amp;quot;: &amp;quot;182.150.44.245&amp;quot;, \n  &amp;quot;url&amp;quot;: &amp;quot;https://www.httpbin.org/put&amp;quot;\n}\n\n--------------------------- Captured stdout teardown ---------------------------\n2026-04-10 18:04:16.099 | INFO     | common.log:info:27 - Test case teardown\n&#34;}], &#34;test_cases/test_httpbin.py::TestHttpbin::test_delete_request&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;test_cases/test_httpbin.py::TestHttpbin::test_delete_request&#34;, &#34;duration&#34;: &#34;00:00:01&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;test_cases/test_httpbin.py::TestHttpbin::test_delete_request&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:01&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stdout setup -----------------------------\n2026-04-10 18:04:16.112 | INFO     | common.log:info:27 - Test case setup\n\n----------------------------- Captured stdout call -----------------------------\n2026-04-10 18:04:16.113 | INFO     | common.log:info:27 - Sending delete request to /delete\n2026-04-10 18:04:16.114 | INFO     | common.log:info:27 - Request data: {}\n2026-04-10 18:04:17.487 | INFO     | common.log:info:27 - Response status code: 200\n2026-04-10 18:04:17.488 | INFO     | common.log:info:27 - Response content: {\n  &amp;quot;args&amp;quot;: {}, \n  &amp;quot;data&amp;quot;: &amp;quot;&amp;quot;, \n  &amp;quot;files&amp;quot;: {}, \n  &amp;quot;form&amp;quot;: {}, \n  &amp;quot;headers&amp;quot;: {\n    &amp;quot;Accept&amp;quot;: &amp;quot;*/*&amp;quot;, \n    &amp;quot;Accept-Encoding&amp;quot;: &amp;quot;gzip, deflate&amp;quot;, \n    &amp;quot;Host&amp;quot;: &amp;quot;www.httpbin.org&amp;quot;, \n    &amp;quot;User-Agent&amp;quot;: &amp;quot;python-httpx/0.28.1&amp;quot;, \n    &amp;quot;X-Amzn-Trace-Id&amp;quot;: &amp;quot;Root=1-69d8cb20-6e290544189c5b5f2a1e69d4&amp;quot;\n  }, \n  &amp;quot;json&amp;quot;: null, \n  &amp;quot;origin&amp;quot;: &amp;quot;182.150.44.245&amp;quot;, \n  &amp;quot;url&amp;quot;: &amp;quot;https://www.httpbin.org/delete&amp;quot;\n}\n\n--------------------------- Captured stdout teardown ---------------------------\n2026-04-10 18:04:17.489 | INFO     | common.log:info:27 - Test case teardown\n&#34;}], &#34;test_cases/test_httpbin.py::TestHttpbin::test_status_code&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;test_cases/test_httpbin.py::TestHttpbin::test_status_code&#34;, &#34;duration&#34;: &#34;368 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;test_cases/test_httpbin.py::TestHttpbin::test_status_code&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;368 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stdout setup -----------------------------\n2026-04-10 18:04:17.496 | INFO     | common.log:info:27 - Test case setup\n\n----------------------------- Captured stdout call -----------------------------\n2026-04-10 18:04:17.498 | INFO     | common.log:info:27 - Sending get request to /status/200\n2026-04-10 18:04:17.498 | INFO     | common.log:info:27 - Request data: {}\n2026-04-10 18:04:17.859 | INFO     | common.log:info:27 - Response status code: 200\n2026-04-10 18:04:17.859 | INFO     | common.log:info:27 - Response content: \n--------------------------- Captured stdout teardown ---------------------------\n2026-04-10 18:04:17.860 | INFO     | common.log:info:27 - Test case teardown\n&#34;}], &#34;test_cases/test_httpbin.py::TestHttpbin::test_headers&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;test_cases/test_httpbin.py::TestHttpbin::test_headers&#34;, &#34;duration&#34;: &#34;265 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;test_cases/test_httpbin.py::TestHttpbin::test_headers&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;265 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stdout setup -----------------------------\n2026-04-10 18:04:17.869 | INFO     | common.log:info:27 - Test case setup\n\n----------------------------- Captured stdout call -----------------------------\n2026-04-10 18:04:17.871 | INFO     | common.log:info:27 - Sending get request to /headers\n2026-04-10 18:04:17.871 | INFO     | common.log:info:27 - Request data: {&amp;#x27;headers&amp;#x27;: {&amp;#x27;X-Custom-Header&amp;#x27;: &amp;#x27;custom-value&amp;#x27;}}\n2026-04-10 18:04:18.129 | INFO     | common.log:info:27 - Response status code: 200\n2026-04-10 18:04:18.130 | INFO     | common.log:info:27 - Response content: {\n  &amp;quot;headers&amp;quot;: {\n    &amp;quot;Accept&amp;quot;: &amp;quot;*/*&amp;quot;, \n    &amp;quot;Accept-Encoding&amp;quot;: &amp;quot;gzip, deflate&amp;quot;, \n    &amp;quot;Host&amp;quot;: &amp;quot;www.httpbin.org&amp;quot;, \n    &amp;quot;User-Agent&amp;quot;: &amp;quot;python-httpx/0.28.1&amp;quot;, \n    &amp;quot;X-Amzn-Trace-Id&amp;quot;: &amp;quot;Root=1-69d8cb22-27cc90c829801c600038f191&amp;quot;, \n    &amp;quot;X-Custom-Header&amp;quot;: &amp;quot;custom-value&amp;quot;\n  }\n}\n\n--------------------------- Captured stdout teardown ---------------------------\n2026-04-10 18:04:18.131 | INFO     | common.log:info:27 - Test case teardown\n&#34;}], &#34;test_cases/test_httpbin.py::TestHttpbin::test_mock_response&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Failed&#34;, &#34;testId&#34;: &#34;test_cases/test_httpbin.py::TestHttpbin::test_mock_response&#34;, &#34;duration&#34;: &#34;00:00:01&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Failed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;test_cases/test_httpbin.py::TestHttpbin::test_mock_response&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;00:00:01&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;self = &amp;lt;shadow_api_auto_test.test_cases.test_httpbin.TestHttpbin object at 0x000001D71284EBE0&amp;gt;\n\n    @allure.feature(&amp;quot;Mock Server&amp;quot;)\n    @allure.story(&amp;quot;Mock response&amp;quot;)\n    def test_mock_response(self):\n        # \u542f\u52a8 mock \u670d\u52a1\n        mock_server.start()\n    \n        # \u8bbe\u7f6e mock \u54cd\u5e94\n        mock_response = {\n            &amp;quot;mock&amp;quot;: True,\n            &amp;quot;data&amp;quot;: &amp;quot;This is a mock response&amp;quot;\n        }\n        mock_server.set_mock_response(&amp;#x27;/mock&amp;#x27;, mock_response)\n    \n        # \u6d4b\u8bd5 mock \u670d\u52a1\n        from common.request import Request\n        mock_request = Request()\n        mock_request.base_url = &amp;quot;http://localhost:8888&amp;quot;\n        response = mock_request.get(&amp;#x27;/mock&amp;#x27;)\n&amp;gt;       assert response.status_code == 200\nE       assert 404 == 200\nE        +  where 404 = &amp;lt;Response [404 NOT FOUND]&amp;gt;.status_code\n\ntest_cases\\test_httpbin.py:85: AssertionError\n\n---------------------------- Captured stdout setup -----------------------------\n2026-04-10 18:04:18.138 | INFO     | common.log:info:27 - Test case setup\n\n----------------------------- Captured stdout call -----------------------------\n2026-04-10 18:04:18.213 | INFO     | common.log:info:27 - Mock server started at http://localhost:8888\n--------------------------- Captured stdout teardown ---------------------------\n2026-04-10 18:04:19.453 | INFO     | common.log:info:27 - Test case teardown\n&#34;}], &#34;test_cases/test_sample.py::TestHttpbin::test_pass&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;test_cases/test_sample.py::TestHttpbin::test_pass&#34;, &#34;duration&#34;: &#34;4 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;test_cases/test_sample.py::TestHttpbin::test_pass&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;4 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stdout setup -----------------------------\n2026-04-10 18:04:19.460 | INFO     | common.log:info:27 - Test case setup\n--------------------------- Captured stdout teardown ---------------------------\n2026-04-10 18:04:19.462 | INFO     | common.log:info:27 - Test case teardown\n&#34;}], &#34;test_cases/test_sample.py::TestHttpbin::test_fail&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Failed&#34;, &#34;testId&#34;: &#34;test_cases/test_sample.py::TestHttpbin::test_fail&#34;, &#34;duration&#34;: &#34;4 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Failed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;test_cases/test_sample.py::TestHttpbin::test_fail&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;4 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;self = &amp;lt;shadow_api_auto_test.test_cases.test_sample.TestHttpbin object at 0x000001D71282B110&amp;gt;\n\n    def test_fail(self):\n&amp;gt;       assert 1 + 1 == 3\nE       assert (1 + 1) == 3\n\ntest_cases\\test_sample.py:20: AssertionError\n\n---------------------------- Captured stdout setup -----------------------------\n2026-04-10 18:04:19.467 | INFO     | common.log:info:27 - Test case setup\n--------------------------- Captured stdout teardown ---------------------------\n2026-04-10 18:04:19.476 | INFO     | common.log:info:27 - Test case teardown\n&#34;}], &#34;test_cases/test_sample.py::TestHttpbin::test_skip&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Skipped&#34;, &#34;testId&#34;: &#34;test_cases/test_sample.py::TestHttpbin::test_skip&#34;, &#34;duration&#34;: &#34;4 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Skipped&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;test_cases/test_sample.py::TestHttpbin::test_skip&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;4 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;(&amp;#x27;D:\\\\chengxu\\\\chengxu\\\\shadow_api_auto_test\\\\test_cases\\\\test_sample.py&amp;#x27;, 23, &amp;#x27;Skipped: \u8fd9\u4e2a\u6d4b\u8bd5\u88ab\u8df3\u8fc7&amp;#x27;)\n\n---------------------------- Captured stdout setup -----------------------------\n2026-04-10 18:04:19.481 | INFO     | common.log:info:27 - Test case setup\n--------------------------- Captured stdout teardown ---------------------------\n2026-04-10 18:04:19.515 | INFO     | common.log:info:27 - Test case teardown\n&#34;}], &#34;test_cases/test_sample.py::TestHttpbin::test_xfail&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;XFailed&#34;, &#34;testId&#34;: &#34;test_cases/test_sample.py::TestHttpbin::test_xfail&#34;, &#34;duration&#34;: &#34;4 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;XFailed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;test_cases/test_sample.py::TestHttpbin::test_xfail&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;4 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;self = &amp;lt;shadow_api_auto_test.test_cases.test_sample.TestHttpbin object at 0x000001D7128C5220&amp;gt;\n\n    @pytest.mark.xfail\n    def test_xfail(self):\n&amp;gt;       assert 1 + 1 == 3\nE       assert (1 + 1) == 3\n\ntest_cases\\test_sample.py:27: AssertionError\n\n---------------------------- Captured stdout setup -----------------------------\n2026-04-10 18:04:19.520 | INFO     | common.log:info:27 - Test case setup\n--------------------------- Captured stdout teardown ---------------------------\n2026-04-10 18:04:19.528 | INFO     | common.log:info:27 - Test case teardown\n&#34;}], &#34;test_cases/test_sample.py::TestHttpbin::test_xpass&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;XPassed&#34;, &#34;testId&#34;: &#34;test_cases/test_sample.py::TestHttpbin::test_xpass&#34;, &#34;duration&#34;: &#34;4 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;XPassed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;test_cases/test_sample.py::TestHttpbin::test_xpass&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;4 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;---------------------------- Captured stdout setup -----------------------------\n2026-04-10 18:04:19.541 | INFO     | common.log:info:27 - Test case setup\n--------------------------- Captured stdout teardown ---------------------------\n2026-04-10 18:04:19.557 | INFO     | common.log:info:27 - Test case teardown\n&#34;}], &#34;test_cases/test_sample.py::TestHttpbin::test_error&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Failed&#34;, &#34;testId&#34;: &#34;test_cases/test_sample.py::TestHttpbin::test_error&#34;, &#34;duration&#34;: &#34;4 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Failed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;test_cases/test_sample.py::TestHttpbin::test_error&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;4 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;self = &amp;lt;shadow_api_auto_test.test_cases.test_sample.TestHttpbin object at 0x000001D71284EF10&amp;gt;\n\n    def test_error(self):\n        &amp;quot;&amp;quot;&amp;quot;\u8fd9\u662f\u4e00\u4e2a Error \u7528\u4f8b - \u6d4b\u8bd5\u6267\u884c\u65f6\u53d1\u751f\u5f02\u5e38&amp;quot;&amp;quot;&amp;quot;\n        # \u6545\u610f\u5f15\u53d1\u4e00\u4e2a\u5f02\u5e38\u6765\u6a21\u62df\u9519\u8bef\n&amp;gt;       raise ValueError(&amp;quot;\u6a21\u62df\u6d4b\u8bd5\u6267\u884c\u9519\u8bef&amp;quot;)\nE       ValueError: \u6a21\u62df\u6d4b\u8bd5\u6267\u884c\u9519\u8bef\n\ntest_cases\\test_sample.py:37: ValueError\n\n---------------------------- Captured stdout setup -----------------------------\n2026-04-10 18:04:19.562 | INFO     | common.log:info:27 - Test case setup\n--------------------------- Captured stdout teardown ---------------------------\n2026-04-10 18:04:19.570 | INFO     | common.log:info:27 - Test case teardown\n&#34;}], &#34;test_cases/test_sample.py::TestHttpbin::test_error_with_fixture&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Error&#34;, &#34;testId&#34;: &#34;test_cases/test_sample.py::TestHttpbin::test_error_with_fixture::setup&#34;, &#34;duration&#34;: &#34;36 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Error&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;test_cases/test_sample.py::TestHttpbin::test_error_with_fixture::setup&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;36 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;self = &amp;lt;shadow_api_auto_test.test_cases.test_sample.TestHttpbin object at 0x000001D71284F020&amp;gt;\n\n    @pytest.fixture\n    def error_fixture(self):\n        # \u5728fixture\u4e2d\u5f15\u53d1\u5f02\u5e38\uff0c\u4e5f\u4f1a\u5bfc\u81f4\u6d4b\u8bd5\u9519\u8bef\n&amp;gt;       raise RuntimeError(&amp;quot;fixture\u4e2d\u7684\u9519\u8bef&amp;quot;)\nE       RuntimeError: fixture\u4e2d\u7684\u9519\u8bef\n\ntest_cases\\test_sample.py:42: RuntimeError\n\n---------------------------- Captured stdout setup -----------------------------\n2026-04-10 18:04:19.576 | INFO     | common.log:info:27 - Test case setup\n--------------------------- Captured stdout teardown ---------------------------\n2026-04-10 18:04:19.654 | INFO     | common.log:info:27 - Test case teardown\n&#34;}]}, &#34;renderCollapsed&#34;: [&#34;passed&#34;], &#34;initialSort&#34;: &#34;result&#34;, &#34;title&#34;: &#34;report.html&#34;}"></div>
+    <script>
+      (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+const { getCollapsedCategory, setCollapsedIds } = require('./storage.js')
+
+class DataManager {
+    setManager(data) {
+        const collapsedCategories = [...getCollapsedCategory(data.renderCollapsed)]
+        const collapsedIds = []
+        const tests = Object.values(data.tests).flat().map((test, index) => {
+            const collapsed = collapsedCategories.includes(test.result.toLowerCase())
+            const id = `test_${index}`
+            if (collapsed) {
+                collapsedIds.push(id)
+            }
+            return {
+                ...test,
+                id,
+                collapsed,
+            }
+        })
+        const dataBlob = { ...data, tests }
+        this.data = { ...dataBlob }
+        this.renderData = { ...dataBlob }
+        setCollapsedIds(collapsedIds)
+    }
+
+    get allData() {
+        return { ...this.data }
+    }
+
+    resetRender() {
+        this.renderData = { ...this.data }
+    }
+
+    setRender(data) {
+        this.renderData.tests = [...data]
+    }
+
+    toggleCollapsedItem(id) {
+        this.renderData.tests = this.renderData.tests.map((test) =>
+            test.id === id ? { ...test, collapsed: !test.collapsed } : test,
+        )
+    }
+
+    set allCollapsed(collapsed) {
+        this.renderData = { ...this.renderData, tests: [...this.renderData.tests.map((test) => (
+            { ...test, collapsed }
+        ))] }
+    }
+
+    get testSubset() {
+        return [...this.renderData.tests]
+    }
+
+    get environment() {
+        return this.renderData.environment
+    }
+
+    get initialSort() {
+        return this.data.initialSort
+    }
+}
+
+module.exports = {
+    manager: new DataManager(),
+}
+
+},{"./storage.js":8}],2:[function(require,module,exports){
+const mediaViewer = require('./mediaviewer.js')
+const templateEnvRow = document.getElementById('template_environment_row')
+const templateResult = document.getElementById('template_results-table__tbody')
+
+function htmlToElements(html) {
+    const temp = document.createElement('template')
+    temp.innerHTML = html
+    return temp.content.childNodes
+}
+
+const find = (selector, elem) => {
+    if (!elem) {
+        elem = document
+    }
+    return elem.querySelector(selector)
+}
+
+const findAll = (selector, elem) => {
+    if (!elem) {
+        elem = document
+    }
+    return [...elem.querySelectorAll(selector)]
+}
+
+const dom = {
+    getStaticRow: (key, value) => {
+        const envRow = templateEnvRow.content.cloneNode(true)
+        const isObj = typeof value === 'object' && value !== null
+        const values = isObj ? Object.keys(value).map((k) => `${k}: ${value[k]}`) : null
+
+        const valuesElement = htmlToElements(
+            values ? `<ul>${values.map((val) => `<li>${val}</li>`).join('')}<ul>` : `<div>${value}</div>`)[0]
+        const td = findAll('td', envRow)
+        td[0].textContent = key
+        td[1].appendChild(valuesElement)
+
+        return envRow
+    },
+    getResultTBody: ({ testId, id, log, extras, resultsTableRow, tableHtml, result, collapsed }) => {
+        const resultBody = templateResult.content.cloneNode(true)
+        resultBody.querySelector('tbody').classList.add(result.toLowerCase())
+        resultBody.querySelector('tbody').id = testId
+        resultBody.querySelector('.collapsible').dataset.id = id
+
+        resultsTableRow.forEach((html) => {
+            const t = document.createElement('template')
+            t.innerHTML = html
+            resultBody.querySelector('.collapsible').appendChild(t.content)
+        })
+
+        if (log) {
+            // Wrap lines starting with "E" with span.error to color those lines red
+            const wrappedLog = log.replace(/^E.*$/gm, (match) => `<span class="error">${match}</span>`)
+            resultBody.querySelector('.log').innerHTML = wrappedLog
+        } else {
+            resultBody.querySelector('.log').remove()
+        }
+
+        if (collapsed) {
+            resultBody.querySelector('.collapsible > .col-result')?.classList.add('collapsed')
+            resultBody.querySelector('.extras-row').classList.add('hidden')
+        } else {
+            resultBody.querySelector('.collapsible > .col-result')?.classList.remove('collapsed')
+        }
+
+        const media = []
+        extras?.forEach(({ name, format_type, content }) => {
+            if (['image', 'video'].includes(format_type)) {
+                media.push({ path: content, name, format_type })
+            }
+
+            if (format_type === 'html') {
+                resultBody.querySelector('.extraHTML').insertAdjacentHTML('beforeend', `<div>${content}</div>`)
+            }
+        })
+        mediaViewer.setup(resultBody, media)
+
+        // Add custom html from the pytest_xhtml_results_table_html hook
+        tableHtml?.forEach((item) => {
+            resultBody.querySelector('td[class="extra"]').insertAdjacentHTML('beforeend', item)
+        })
+
+        return resultBody
+    },
+}
+
+module.exports = {
+    dom,
+    htmlToElements,
+    find,
+    findAll,
+}
+
+},{"./mediaviewer.js":6}],3:[function(require,module,exports){
+const { manager } = require('./datamanager.js')
+const { doSort } = require('./sort.js')
+const storageModule = require('./storage.js')
+
+const getFilteredSubSet = (filter) =>
+    manager.allData.tests.filter(({ result }) => filter.includes(result.toLowerCase()))
+
+const doInitFilter = () => {
+    const currentFilter = storageModule.getVisible()
+    const filteredSubset = getFilteredSubSet(currentFilter)
+    manager.setRender(filteredSubset)
+}
+
+const doFilter = (type, show) => {
+    if (show) {
+        storageModule.showCategory(type)
+    } else {
+        storageModule.hideCategory(type)
+    }
+
+    const currentFilter = storageModule.getVisible()
+    const filteredSubset = getFilteredSubSet(currentFilter)
+    manager.setRender(filteredSubset)
+
+    const sortColumn = storageModule.getSort()
+    doSort(sortColumn, true)
+}
+
+module.exports = {
+    doFilter,
+    doInitFilter,
+}
+
+},{"./datamanager.js":1,"./sort.js":7,"./storage.js":8}],4:[function(require,module,exports){
+const { redraw, bindEvents, renderStatic } = require('./main.js')
+const { doInitFilter } = require('./filter.js')
+const { doInitSort } = require('./sort.js')
+const { manager } = require('./datamanager.js')
+const data = JSON.parse(document.getElementById('data-container').dataset.jsonblob)
+
+function init() {
+    manager.setManager(data)
+    doInitFilter()
+    doInitSort()
+    renderStatic()
+    redraw()
+    bindEvents()
+}
+
+init()
+
+},{"./datamanager.js":1,"./filter.js":3,"./main.js":5,"./sort.js":7}],5:[function(require,module,exports){
+const { dom, find, findAll } = require('./dom.js')
+const { manager } = require('./datamanager.js')
+const { doSort } = require('./sort.js')
+const { doFilter } = require('./filter.js')
+const {
+    getVisible,
+    getCollapsedIds,
+    setCollapsedIds,
+    getSort,
+    getSortDirection,
+    possibleFilters,
+} = require('./storage.js')
+
+const removeChildren = (node) => {
+    while (node.firstChild) {
+        node.removeChild(node.firstChild)
+    }
+}
+
+const renderStatic = () => {
+    const renderEnvironmentTable = () => {
+        const environment = manager.environment
+        const rows = Object.keys(environment).map((key) => dom.getStaticRow(key, environment[key]))
+        const table = document.getElementById('environment')
+        removeChildren(table)
+        rows.forEach((row) => table.appendChild(row))
+    }
+    renderEnvironmentTable()
+}
+
+const addItemToggleListener = (elem) => {
+    elem.addEventListener('click', ({ target }) => {
+        const id = target.parentElement.dataset.id
+        manager.toggleCollapsedItem(id)
+
+        const collapsedIds = getCollapsedIds()
+        if (collapsedIds.includes(id)) {
+            const updated = collapsedIds.filter((item) => item !== id)
+            setCollapsedIds(updated)
+        } else {
+            collapsedIds.push(id)
+            setCollapsedIds(collapsedIds)
+        }
+        redraw()
+    })
+}
+
+const renderContent = (tests) => {
+    const sortAttr = getSort(manager.initialSort)
+    const sortAsc = JSON.parse(getSortDirection())
+    const rows = tests.map(dom.getResultTBody)
+    const table = document.getElementById('results-table')
+    const tableHeader = document.getElementById('results-table-head')
+
+    const newTable = document.createElement('table')
+    newTable.id = 'results-table'
+
+    // remove all sorting classes and set the relevant
+    findAll('.sortable', tableHeader).forEach((elem) => elem.classList.remove('asc', 'desc'))
+    tableHeader.querySelector(`.sortable[data-column-type="${sortAttr}"]`)?.classList.add(sortAsc ? 'desc' : 'asc')
+    newTable.appendChild(tableHeader)
+
+    if (!rows.length) {
+        const emptyTable = document.getElementById('template_results-table__body--empty').content.cloneNode(true)
+        newTable.appendChild(emptyTable)
+    } else {
+        rows.forEach((row) => {
+            if (!!row) {
+                findAll('.collapsible td:not(.col-links', row).forEach(addItemToggleListener)
+                find('.logexpander', row).addEventListener('click',
+                    (evt) => evt.target.parentNode.classList.toggle('expanded'),
+                )
+                newTable.appendChild(row)
+            }
+        })
+    }
+
+    table.replaceWith(newTable)
+}
+
+const renderDerived = () => {
+    const currentFilter = getVisible()
+    possibleFilters.forEach((result) => {
+        const input = document.querySelector(`input[data-test-result="${result}"]`)
+        input.checked = currentFilter.includes(result)
+    })
+}
+
+const bindEvents = () => {
+    const filterColumn = (evt) => {
+        const { target: element } = evt
+        const { testResult } = element.dataset
+
+        doFilter(testResult, element.checked)
+        const collapsedIds = getCollapsedIds()
+        const updated = manager.renderData.tests.map((test) => {
+            return {
+                ...test,
+                collapsed: collapsedIds.includes(test.id),
+            }
+        })
+        manager.setRender(updated)
+        redraw()
+    }
+
+    const header = document.getElementById('environment-header')
+    header.addEventListener('click', () => {
+        const table = document.getElementById('environment')
+        table.classList.toggle('hidden')
+        header.classList.toggle('collapsed')
+    })
+
+    findAll('input[name="filter_checkbox"]').forEach((elem) => {
+        elem.addEventListener('click', filterColumn)
+    })
+
+    findAll('.sortable').forEach((elem) => {
+        elem.addEventListener('click', (evt) => {
+            const { target: element } = evt
+            const { columnType } = element.dataset
+            doSort(columnType)
+            redraw()
+        })
+    })
+
+    document.getElementById('show_all_details').addEventListener('click', () => {
+        manager.allCollapsed = false
+        setCollapsedIds([])
+        redraw()
+    })
+    document.getElementById('hide_all_details').addEventListener('click', () => {
+        manager.allCollapsed = true
+        const allIds = manager.renderData.tests.map((test) => test.id)
+        setCollapsedIds(allIds)
+        redraw()
+    })
+}
+
+const redraw = () => {
+    const { testSubset } = manager
+
+    renderContent(testSubset)
+    renderDerived()
+}
+
+module.exports = {
+    redraw,
+    bindEvents,
+    renderStatic,
+}
+
+},{"./datamanager.js":1,"./dom.js":2,"./filter.js":3,"./sort.js":7,"./storage.js":8}],6:[function(require,module,exports){
+class MediaViewer {
+    constructor(assets) {
+        this.assets = assets
+        this.index = 0
+    }
+
+    nextActive() {
+        this.index = this.index === this.assets.length - 1 ? 0 : this.index + 1
+        return [this.activeFile, this.index]
+    }
+
+    prevActive() {
+        this.index = this.index === 0 ? this.assets.length - 1 : this.index -1
+        return [this.activeFile, this.index]
+    }
+
+    get currentIndex() {
+        return this.index
+    }
+
+    get activeFile() {
+        return this.assets[this.index]
+    }
+}
+
+
+const setup = (resultBody, assets) => {
+    if (!assets.length) {
+        resultBody.querySelector('.media').classList.add('hidden')
+        return
+    }
+
+    const mediaViewer = new MediaViewer(assets)
+    const container = resultBody.querySelector('.media-container')
+    const leftArrow = resultBody.querySelector('.media-container__nav--left')
+    const rightArrow = resultBody.querySelector('.media-container__nav--right')
+    const mediaName = resultBody.querySelector('.media__name')
+    const counter = resultBody.querySelector('.media__counter')
+    const imageEl = resultBody.querySelector('img')
+    const sourceEl = resultBody.querySelector('source')
+    const videoEl = resultBody.querySelector('video')
+
+    const setImg = (media, index) => {
+        if (media?.format_type === 'image') {
+            imageEl.src = media.path
+
+            imageEl.classList.remove('hidden')
+            videoEl.classList.add('hidden')
+        } else if (media?.format_type === 'video') {
+            sourceEl.src = media.path
+
+            videoEl.classList.remove('hidden')
+            imageEl.classList.add('hidden')
+        }
+
+        mediaName.innerText = media?.name
+        counter.innerText = `${index + 1} / ${assets.length}`
+    }
+    setImg(mediaViewer.activeFile, mediaViewer.currentIndex)
+
+    const moveLeft = () => {
+        const [media, index] = mediaViewer.prevActive()
+        setImg(media, index)
+    }
+    const doRight = () => {
+        const [media, index] = mediaViewer.nextActive()
+        setImg(media, index)
+    }
+    const openImg = () => {
+        window.open(mediaViewer.activeFile.path, '_blank')
+    }
+    if (assets.length === 1) {
+        container.classList.add('media-container--fullscreen')
+    } else {
+        leftArrow.addEventListener('click', moveLeft)
+        rightArrow.addEventListener('click', doRight)
+    }
+    imageEl.addEventListener('click', openImg)
+}
+
+module.exports = {
+    setup,
+}
+
+},{}],7:[function(require,module,exports){
+const { manager } = require('./datamanager.js')
+const storageModule = require('./storage.js')
+
+const genericSort = (list, key, ascending, customOrder) => {
+    let sorted
+    if (customOrder) {
+        sorted = list.sort((a, b) => {
+            const aValue = a.result.toLowerCase()
+            const bValue = b.result.toLowerCase()
+
+            const aIndex = customOrder.findIndex((item) => item.toLowerCase() === aValue)
+            const bIndex = customOrder.findIndex((item) => item.toLowerCase() === bValue)
+
+            // Compare the indices to determine the sort order
+            return aIndex - bIndex
+        })
+    } else {
+        sorted = list.sort((a, b) => a[key] === b[key] ? 0 : a[key] > b[key] ? 1 : -1)
+    }
+
+    if (ascending) {
+        sorted.reverse()
+    }
+    return sorted
+}
+
+const durationSort = (list, ascending) => {
+    const parseDuration = (duration) => {
+        if (duration.includes(':')) {
+            // If it's in the format "HH:mm:ss"
+            const [hours, minutes, seconds] = duration.split(':').map(Number)
+            return (hours * 3600 + minutes * 60 + seconds) * 1000
+        } else {
+            // If it's in the format "nnn ms"
+            return parseInt(duration)
+        }
+    }
+    const sorted = list.sort((a, b) => parseDuration(a['duration']) - parseDuration(b['duration']))
+    if (ascending) {
+        sorted.reverse()
+    }
+    return sorted
+}
+
+const doInitSort = () => {
+    const type = storageModule.getSort(manager.initialSort)
+    const ascending = storageModule.getSortDirection()
+    const list = manager.testSubset
+    const initialOrder = ['Error', 'Failed', 'Rerun', 'XFailed', 'XPassed', 'Skipped', 'Passed']
+
+    storageModule.setSort(type)
+    storageModule.setSortDirection(ascending)
+
+    if (type?.toLowerCase() === 'original') {
+        manager.setRender(list)
+    } else {
+        let sortedList
+        switch (type) {
+        case 'duration':
+            sortedList = durationSort(list, ascending)
+            break
+        case 'result':
+            sortedList = genericSort(list, type, ascending, initialOrder)
+            break
+        default:
+            sortedList = genericSort(list, type, ascending)
+            break
+        }
+        manager.setRender(sortedList)
+    }
+}
+
+const doSort = (type, skipDirection) => {
+    const newSortType = storageModule.getSort(manager.initialSort) !== type
+    const currentAsc = storageModule.getSortDirection()
+    let ascending
+    if (skipDirection) {
+        ascending = currentAsc
+    } else {
+        ascending = newSortType ? false : !currentAsc
+    }
+    storageModule.setSort(type)
+    storageModule.setSortDirection(ascending)
+
+    const list = manager.testSubset
+    const sortedList = type === 'duration' ? durationSort(list, ascending) : genericSort(list, type, ascending)
+    manager.setRender(sortedList)
+}
+
+module.exports = {
+    doInitSort,
+    doSort,
+}
+
+},{"./datamanager.js":1,"./storage.js":8}],8:[function(require,module,exports){
+const possibleFilters = [
+    'passed',
+    'skipped',
+    'failed',
+    'error',
+    'xfailed',
+    'xpassed',
+    'rerun',
+]
+
+const getVisible = () => {
+    const url = new URL(window.location.href)
+    const settings = new URLSearchParams(url.search).get('visible')
+    const lower = (item) => {
+        const lowerItem = item.toLowerCase()
+        if (possibleFilters.includes(lowerItem)) {
+            return lowerItem
+        }
+        return null
+    }
+    return settings === null ?
+        possibleFilters :
+        [...new Set(settings?.split(',').map(lower).filter((item) => item))]
+}
+
+const hideCategory = (categoryToHide) => {
+    const url = new URL(window.location.href)
+    const visibleParams = new URLSearchParams(url.search).get('visible')
+    const currentVisible = visibleParams ? visibleParams.split(',') : [...possibleFilters]
+    const settings = [...new Set(currentVisible)].filter((f) => f !== categoryToHide).join(',')
+
+    url.searchParams.set('visible', settings)
+    window.history.pushState({}, null, unescape(url.href))
+}
+
+const showCategory = (categoryToShow) => {
+    if (typeof window === 'undefined') {
+        return
+    }
+    const url = new URL(window.location.href)
+    const currentVisible = new URLSearchParams(url.search).get('visible')?.split(',').filter(Boolean) ||
+        [...possibleFilters]
+    const settings = [...new Set([categoryToShow, ...currentVisible])]
+    const noFilter = possibleFilters.length === settings.length || !settings.length
+
+    noFilter ? url.searchParams.delete('visible') : url.searchParams.set('visible', settings.join(','))
+    window.history.pushState({}, null, unescape(url.href))
+}
+
+const getSort = (initialSort) => {
+    const url = new URL(window.location.href)
+    let sort = new URLSearchParams(url.search).get('sort')
+    if (!sort) {
+        sort = initialSort || 'result'
+    }
+    return sort
+}
+
+const setSort = (type) => {
+    const url = new URL(window.location.href)
+    url.searchParams.set('sort', type)
+    window.history.pushState({}, null, unescape(url.href))
+}
+
+const getCollapsedCategory = (renderCollapsed) => {
+    let categories
+    if (typeof window !== 'undefined') {
+        const url = new URL(window.location.href)
+        const collapsedItems = new URLSearchParams(url.search).get('collapsed')
+        switch (true) {
+        case !renderCollapsed && collapsedItems === null:
+            categories = ['passed']
+            break
+        case collapsedItems?.length === 0 || /^["']{2}$/.test(collapsedItems):
+            categories = []
+            break
+        case /^all$/.test(collapsedItems) || collapsedItems === null && /^all$/.test(renderCollapsed):
+            categories = [...possibleFilters]
+            break
+        default:
+            categories = collapsedItems?.split(',').map((item) => item.toLowerCase()) || renderCollapsed
+            break
+        }
+    } else {
+        categories = []
+    }
+    return categories
+}
+
+const getSortDirection = () => JSON.parse(sessionStorage.getItem('sortAsc')) || false
+const setSortDirection = (ascending) => sessionStorage.setItem('sortAsc', ascending)
+
+const getCollapsedIds = () => JSON.parse(sessionStorage.getItem('collapsedIds')) || []
+const setCollapsedIds = (list) => sessionStorage.setItem('collapsedIds', JSON.stringify(list))
+
+module.exports = {
+    getVisible,
+    hideCategory,
+    showCategory,
+    getCollapsedIds,
+    setCollapsedIds,
+    getSort,
+    setSort,
+    getSortDirection,
+    setSortDirection,
+    getCollapsedCategory,
+    possibleFilters,
+}
+
+},{}]},{},[4]);
+    </script>
+  </footer>
+  </div>
+  <footer class="footer-bottom">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6">
+          <p>Report generated on 10-Apr-2026 at 18:04:19 by <a
+              href="https://github.com/SeldomQA/pytest-xhtml">pytest-xhtml</a>
+            v0.4.0</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

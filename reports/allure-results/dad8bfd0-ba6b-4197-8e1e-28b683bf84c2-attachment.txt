@@ -1,0 +1,2 @@
+2026-04-10 18:04:19.481 | INFO     | common.log:info:27 - Test case setup
+2026-04-10 18:04:19.515 | INFO     | common.log:info:27 - Test case teardown

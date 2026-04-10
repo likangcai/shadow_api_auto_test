@@ -1,0 +1,22 @@
+2026-04-10 18:04:16.112 | INFO     | common.log:info:27 - Test case setup
+2026-04-10 18:04:16.113 | INFO     | common.log:info:27 - Sending delete request to /delete
+2026-04-10 18:04:16.114 | INFO     | common.log:info:27 - Request data: {}
+2026-04-10 18:04:17.487 | INFO     | common.log:info:27 - Response status code: 200
+2026-04-10 18:04:17.488 | INFO     | common.log:info:27 - Response content: {
+  "args": {}, 
+  "data": "", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Host": "www.httpbin.org", 
+    "User-Agent": "python-httpx/0.28.1", 
+    "X-Amzn-Trace-Id": "Root=1-69d8cb20-6e290544189c5b5f2a1e69d4"
+  }, 
+  "json": null, 
+  "origin": "182.150.44.245", 
+  "url": "https://www.httpbin.org/delete"
+}
+
+2026-04-10 18:04:17.489 | INFO     | common.log:info:27 - Test case teardown

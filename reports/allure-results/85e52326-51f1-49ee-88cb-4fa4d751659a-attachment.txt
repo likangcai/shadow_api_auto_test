@@ -1,0 +1,16 @@
+2026-04-10 18:04:17.869 | INFO     | common.log:info:27 - Test case setup
+2026-04-10 18:04:17.871 | INFO     | common.log:info:27 - Sending get request to /headers
+2026-04-10 18:04:17.871 | INFO     | common.log:info:27 - Request data: {'headers': {'X-Custom-Header': 'custom-value'}}
+2026-04-10 18:04:18.129 | INFO     | common.log:info:27 - Response status code: 200
+2026-04-10 18:04:18.130 | INFO     | common.log:info:27 - Response content: {
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Host": "www.httpbin.org", 
+    "User-Agent": "python-httpx/0.28.1", 
+    "X-Amzn-Trace-Id": "Root=1-69d8cb22-27cc90c829801c600038f191", 
+    "X-Custom-Header": "custom-value"
+  }
+}
+
+2026-04-10 18:04:18.131 | INFO     | common.log:info:27 - Test case teardown

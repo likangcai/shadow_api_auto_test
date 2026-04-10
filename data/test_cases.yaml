@@ -1,0 +1,37 @@
+test_cases:
+  - name: "GET request test"
+    feature: "Httpbin API"
+    story: "GET request"
+    method: "get"
+    url: "/get"
+    params: {"key": "value"}
+    assert:
+      status_code: 200
+      json.args.key: "value"
+  
+  - name: "POST request test"
+    feature: "Httpbin API"
+    story: "POST request"
+    method: "post"
+    url: "/post"
+    json: {"name": "Test User", "email": "test@example.com"}
+    assert:
+      status_code: 200
+      json.json.name: "Test User"
+  
+  - name: "PUT request test"
+    feature: "Httpbin API"
+    story: "PUT request"
+    method: "put"
+    url: "/put"
+    json: {"name": "Updated User"}
+    assert:
+      status_code: 200
+  
+  - name: "DELETE request test"
+    feature: "Httpbin API"
+    story: "DELETE request"
+    method: "delete"
+    url: "/delete"
+    assert:
+      status_code: 200

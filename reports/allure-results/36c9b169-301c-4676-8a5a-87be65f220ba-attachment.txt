@@ -1,0 +1,20 @@
+2026-04-10 18:04:12.183 | INFO     | common.log:info:27 - Test case setup
+2026-04-10 18:04:12.185 | INFO     | common.log:info:27 - Sending get request to /get
+2026-04-10 18:04:12.185 | INFO     | common.log:info:27 - Request data: {'params': {'key': 'value'}, 'json': {}, 'headers': {}}
+2026-04-10 18:04:12.451 | INFO     | common.log:info:27 - Response status code: 200
+2026-04-10 18:04:12.451 | INFO     | common.log:info:27 - Response content: {
+  "args": {
+    "key": "value"
+  }, 
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Host": "www.httpbin.org", 
+    "User-Agent": "python-httpx/0.28.1", 
+    "X-Amzn-Trace-Id": "Root=1-69d8cb1c-1e2790274f54b9fb488bbd9b"
+  }, 
+  "origin": "182.150.44.245", 
+  "url": "https://www.httpbin.org/get?key=value"
+}
+
+2026-04-10 18:04:12.453 | INFO     | common.log:info:27 - Test case teardown

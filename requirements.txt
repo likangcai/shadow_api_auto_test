@@ -1,0 +1,11 @@
+httpx
+loguru
+pytest
+pytest-xhtml
+allure-pytest
+pyyaml
+setuptools
+XTestRunner
+pytest-xdist
+pandas
+openpyxl
