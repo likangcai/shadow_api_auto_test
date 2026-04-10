@@ -243,7 +243,7 @@ assert user_id is not None
 
 如有问题或建议，欢迎通过 Issue 反馈。
 
-作者：影子
-邮箱：yingzilkq@163.com
-Gitee仓库地址：https://gitee.com/yingzi_shadow/shadow_api_auto_test
+作者：影子<br>
+邮箱：yingzilkq@163.com<br>
+Gitee仓库地址：https://gitee.com/yingzi_shadow/shadow_api_auto_test<br>
 微信公众号：前行的影子
