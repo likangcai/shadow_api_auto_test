@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+# -----------------------------
+# @Author    : 影子
+# @Time      : 2025/3/10 15:55
+# @Software  : PyCharm
+# @FileName  : request.py
+# -----------------------------
 import httpx
 import time
 from config.config import config

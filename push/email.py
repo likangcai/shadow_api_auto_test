@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+# -----------------------------
+# @Author    : 影子
+# @Time      : 2025/3/12 09:32
+# @Software  : PyCharm
+# @FileName  : email.py
+# -----------------------------
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart

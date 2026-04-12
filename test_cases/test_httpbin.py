@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+# -----------------------------
+# @Author    : 影子
+# @Time      : 2025/3/12 17:43
+# @Software  : PyCharm
+# @FileName  : test_httpbin.py
+# -----------------------------
 import pytest
 import allure
 from test_cases.base_test import PytestBaseTest

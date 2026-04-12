@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+# -----------------------------
+# @Author    : 影子
+# @Time      : 2025/3/12 09:33
+# @Software  : PyCharm
+# @FileName  : feishu.py
+# -----------------------------
 import httpx
 from config.config import config
 from common.log import log

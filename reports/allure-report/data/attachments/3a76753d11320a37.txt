@@ -1,3 +1,0 @@
-2026-04-10 18:04:18.138 | INFO     | common.log:info:27 - Test case setup
-2026-04-10 18:04:18.213 | INFO     | common.log:info:27 - Mock server started at http://localhost:8888
-2026-04-10 18:04:19.453 | INFO     | common.log:info:27 - Test case teardown

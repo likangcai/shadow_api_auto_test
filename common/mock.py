@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+# -----------------------------
+# @Author    : 影子
+# @Time      : 2025/3/10 13:55
+# @Software  : PyCharm
+# @FileName  : mock.py
+# -----------------------------
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import json
 import threading

@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+# -----------------------------
+# @Author    : 影子
+# @Time      : 2025/3/12 11:43
+# @Software  : PyCharm
+# @FileName  : push_manager.py
+# -----------------------------
 from config.config import config
 from push.email import email_push
 from push.dingtalk import dingtalk_push

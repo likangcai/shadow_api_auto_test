@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+# -----------------------------
+# @Author    : 影子
+# @Time      : 2025/3/11 10:05
+# @Software  : PyCharm
+# @FileName  : utils.py
+# -----------------------------
 import random
 import string
 from datetime import datetime, timedelta

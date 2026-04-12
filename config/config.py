@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+# -----------------------------
+# @Author    : 影子
+# @Time      : 2025/3/10 10:08
+# @Software  : PyCharm
+# @FileName  : config.py
+# -----------------------------
 import os
 import yaml
 from pathlib import Path

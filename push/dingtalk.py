@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+# -----------------------------
+# @Author    : 影子
+# @Time      : 2025/3/12 09:08
+# @Software  : PyCharm
+# @FileName  : dingtalk.py
+# -----------------------------
 import httpx
 import time
 import hmac

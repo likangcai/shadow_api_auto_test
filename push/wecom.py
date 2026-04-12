@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+# -----------------------------
+# @Author    : 影子
+# @Time      : 2025/3/12 10:43
+# @Software  : PyCharm
+# @FileName  : wecom.py
+# -----------------------------
 import httpx
 from config.config import config
 from common.log import log

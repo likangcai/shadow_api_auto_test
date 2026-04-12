@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+# -----------------------------
+# @Author    : 影子
+# @Time      : 2025/3/12 18:13
+# @Software  : PyCharm
+# @FileName  : test_httpbin.py
+# -----------------------------
 from config.config import config
 from runner.runner import runner
 from common.log import log
