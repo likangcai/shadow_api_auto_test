@@ -15,7 +15,7 @@ class WeComPush:
     
     def send(self, content):
         if not self.webhook:
-            log.warning("WeCom webhook is not configured")
+            log.warning("企微webhook未配置")
             return False
         
         try:
@@ -30,13 +30,13 @@ class WeComPush:
             response = httpx.post(self.webhook, json=data, headers=headers)
             result = response.json()
             if result.get('errcode') == 0:
-                log.info("WeCom message sent successfully")
+                log.info("企微消息发送成功")
                 return True
             else:
-                log.error(f"Failed to send WeCom message: {result.get('errmsg')}")
+                log.error(f"企微消息发送失败: {result.get('errmsg')}")
                 return False
         except Exception as e:
-            log.error(f"Failed to send WeCom message: {str(e)}")
+            log.error(f"企微消息发送失败: {str(e)}")
             return False
 
 wecom_push = WeComPush()

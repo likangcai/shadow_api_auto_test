@@ -10,7 +10,7 @@ from runner.runner import runner
 from common.log import log
 
 if __name__ == "__main__":
-    log.info("Starting API automated test framework")
+    log.info("启动API自动化测试框架")
     test_runner = config.get('test_runner', 'pytest')
     
     if test_runner == 'unittest':
@@ -18,4 +18,4 @@ if __name__ == "__main__":
     else:
         result = runner.run_with_pytest()
     
-    log.info("Test execution completed")
+    log.info("测试执行已完成")

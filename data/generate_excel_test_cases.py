@@ -60,4 +60,4 @@ df = pd.DataFrame(data)
 
 # 保存为 Excel 文件
 df.to_excel('test_cases.xlsx', index=False)
-print("Excel test cases file generated successfully!")
+print("Excel测试用例文件生成成功！")

@@ -15,7 +15,7 @@ class FeiShuPush:
     
     def send(self, content):
         if not self.webhook:
-            log.warning("FeiShu webhook is not configured")
+            log.warning("未配置飞书webhook")
             return False
         
         try:
@@ -30,13 +30,13 @@ class FeiShuPush:
             response = httpx.post(self.webhook, json=data, headers=headers)
             result = response.json()
             if result.get('code') == 0:
-                log.info("FeiShu message sent successfully")
+                log.info("飞书消息发送成功")
                 return True
             else:
-                log.error(f"Failed to send FeiShu message: {result.get('msg')}")
+                log.error(f"发送飞书消息失败: {result.get('msg')}")
                 return False
         except Exception as e:
-            log.error(f"Failed to send FeiShu message: {str(e)}")
+            log.error(f"发送飞书消息失败: {str(e)}")
             return False
 
 feishu_push = FeiShuPush()

@@ -29,7 +29,7 @@ class DingTalkPush:
     
     def send(self, content):
         if not self.webhook:
-            log.warning("DingTalk webhook is not configured")
+            log.warning("钉钉webhook未配置")
             return False
         
         try:
@@ -50,13 +50,13 @@ class DingTalkPush:
             response = httpx.post(webhook_url, json=data, headers=headers)
             result = response.json()
             if result.get('errcode') == 0:
-                log.info("DingTalk message sent successfully")
+                log.info("钉钉消息发送成功")
                 return True
             else:
-                log.error(f"Failed to send DingTalk message: {result.get('errmsg')}")
+                log.error(f"发送钉钉消息失败: {result.get('errmsg')}")
                 return False
         except Exception as e:
-            log.error(f"Failed to send DingTalk message: {str(e)}")
+            log.error(f"发送钉钉消息失败: {str(e)}")
             return False
 
 dingtalk_push = DingTalkPush()

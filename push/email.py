@@ -21,7 +21,7 @@ class EmailPush:
     
     def send(self, subject, content):
         if not self.smtp_server or not self.sender or not self.password:
-            log.warning("Email configuration is not complete")
+            log.warning("电子邮件配置未完成")
             return False
         
         try:
@@ -35,10 +35,10 @@ class EmailPush:
             with smtplib.SMTP_SSL(self.smtp_server, self.smtp_port) as server:
                 server.login(self.sender, self.password)
                 server.send_message(msg)
-            log.info("Email sent successfully")
+            log.info("邮件发送成功")
             return True
         except Exception as e:
-            log.error(f"Failed to send email: {str(e)}")
+            log.error(f"邮件发送失败: {str(e)}")
             return False
 
 email_push = EmailPush()

@@ -26,7 +26,7 @@ class Runner:
         self.thread_count = config.get('thread_count', 1)
 
     def run_with_unittest(self):
-        log.info("Running tests with unittest")
+        log.info("使用unittest运行测试")
         test_loader = unittest.TestLoader()
         test_suite = test_loader.discover(str(self.test_cases_dir))
 
@@ -59,7 +59,7 @@ class Runner:
         return result
 
     def run_with_pytest(self):
-        log.info("Running tests with pytest")
+        log.info("使用pytest运行测试")
 
         pytest_args = [
             str(self.test_cases_dir),
@@ -79,7 +79,7 @@ class Runner:
 
             # 读取 pytest-xhtml 配置
             pytest_xhtml_config = config.get('reports.pytest_xhtml', {})
-            self_contained = pytest_xhtml_config.get('self_contained', True)
+            # self_contained = pytest_xhtml_config.get('self_contained', True)
             css_files = pytest_xhtml_config.get('css', [])
 
             pytest_args.extend(["--html", str(html_dir / "report.html")])
@@ -98,7 +98,7 @@ class Runner:
         return result
 
     def _generate_allure_report(self):
-        log.info("Generating Allure report")
+        log.info("生成Allure报告")
         allure_results = self.reports_dir / "allure-results"
         allure_report = self.reports_dir / "allure-report"
 
@@ -109,18 +109,18 @@ class Runner:
         # 检查 allure 命令是否存在
         allure_cmd = shutil.which("allure")
         if allure_cmd:
-            log.info(f"Found Allure command at: {allure_cmd}")
+            log.info(f"在以下位置找到Allure命令: {allure_cmd}")
             try:
                 # 尝试运行 allure 命令
                 result = subprocess.run(
                     [allure_cmd, "generate", str(allure_results), "-o", str(allure_report), "--clean"],
                     check=True, capture_output=True, text=True)
-                log.info(f"Allure report generated at: {allure_report}")
-                log.debug(f"Allure output: {result.stdout}")
+                log.info(f"Allure报告生成于: {allure_report}")
+                log.debug(f"Allure输出: {result.stdout}")
             except subprocess.CalledProcessError as e:
-                log.error(f"Failed to generate Allure report: {e.stderr}")
+                log.error(f"生成Allure报告失败: {e.stderr}")
             except Exception as e:
-                log.error(f"Failed to generate Allure report: {str(e)}")
+                log.error(f"生成Allure报告失败: {str(e)}")
         else:
             # 尝试从常见路径查找 allure
             common_paths = [
@@ -138,21 +138,21 @@ class Runner:
                     break
 
             if found:
-                log.info(f"Found Allure command at: {allure_cmd}")
+                log.info(f"在以下位置找到Allure命令: {allure_cmd}")
                 try:
                     result = subprocess.run(
                         [allure_cmd, "generate", str(allure_results), "-o", str(allure_report), "--clean"],
                         check=True, capture_output=True, text=True)
-                    log.info(f"Allure report generated at: {allure_report}")
-                    log.debug(f"Allure output: {result.stdout}")
+                    log.info(f"Allure报告生成于: {allure_report}")
+                    log.debug(f"Allure输出: {result.stdout}")
                 except subprocess.CalledProcessError as e:
-                    log.error(f"Failed to generate Allure report: {e.stderr}")
+                    log.error(f"生成Allure报告失败: {e.stderr}")
                 except Exception as e:
-                    log.error(f"Failed to generate Allure report: {str(e)}")
+                    log.error(f"生成Allure报告失败: {str(e)}")
             else:
-                log.warning("Allure command not found. Please install Allure to generate the report.")
-                log.info(f"Allure results saved at: {allure_results}")
-                log.info("To generate the report, run: allure generate <allure-results> -o <allure-report> --clean")
+                log.warning("找不到Allure命令。请安装Allure以生成报告。")
+                log.info(f"Allure结果保存在: {allure_results}")
+                log.info("要生成报告，请运行: allure generate <allure-results> -o <allure-report> --clean")
 
     def _send_notification(self, result):
         if isinstance(result, unittest.TestResult):
@@ -166,7 +166,7 @@ class Runner:
             failed = "N/A"
             errors = "N/A"
 
-        subject = "API Automated Test Report"
+        subject = "API自动化测试报告"
         content = f"""
         <h2>Test Report</h2>
         <p>Total Tests: {total}</p>

@@ -25,8 +25,8 @@ class BaseTest:
 
     def send_request(self, method, url, **kwargs):
         method = method.lower()
-        log.info(f"Sending {method} request to {url}")
-        log.info(f"Request data: {kwargs}")
+        log.info(f"向{url}发送{method}请求")
+        log.info(f"请求数据: {kwargs}")
         
         # 移除不支持的参数
         if method in ['get', 'delete']:
@@ -44,8 +44,8 @@ class BaseTest:
         else:
             raise ValueError(f"Unsupported method: {method}")
         
-        log.info(f"Response status code: {response.status_code}")
-        log.info(f"Response content: {response.text}")
+        log.info(f"响应状态: {response.status_code}")
+        log.info(f"响应内容：{response.text}")
         return response
 
     def extract_variable(self, key, value):
@@ -57,7 +57,7 @@ class BaseTest:
         :return: None
         """
         case_relation.set_variable(key, value)
-        log.info(f"Extracted variable: {key} = {value}")
+        log.info(f"提取的变量：{key} = {value}")
 
     def get_variable(self, key, default=None):
         """
