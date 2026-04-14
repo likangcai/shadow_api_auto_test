@@ -11,6 +11,7 @@ import json
 import threading
 from unittest.mock import Mock, MagicMock
 from common.log import log
+from config.config import config
 
 
 class MockHandler(BaseHTTPRequestHandler):
@@ -120,18 +121,18 @@ class MockHandler(BaseHTTPRequestHandler):
                     else:
                         response_config = MockResponse(status_code=200, body=response_data)
                 except Exception as e:
-                    log.error(f"Callback execution failed for {path}: {e}")
+                    log.error(f"回调执行失败 {path}: {e}")
                     self._send_error_response(500, f"Callback error: {str(e)}")
                     return
 
             if response_config is not None:
                 self._send_configured_response(response_config)
-                log.debug(f"Mock response sent for {self.command} {self.path}")
+                log.debug(f"已发送模拟响应 {self.command} {self.path}")
             else:
                 self._send_error_response(404, f"No mock response configured for path: {self.path}")
-                log.warning(f"No mock response found for {self.command} {self.path}")
+                log.warning(f"未找到的模拟响应 {self.command} {self.path}")
         except Exception as e:
-            log.error(f"Error sending mock response for {self.command} {self.path}: {e}")
+            log.error(f"发送模拟响应时出错 {self.command} {self.path}: {e}")
             self._send_error_response(500, "Internal server error")
 
     def _send_configured_response(self, response_config):
@@ -221,9 +222,17 @@ class MockServer:
     Mock服务 - 基于HTTPServer的实现，适用于集成测试和API测试
     """
 
-    def __init__(self, host='localhost', port=8888):
-        self.host = host
-        self.port = port
+    def __init__(self, host=None, port=None):
+        """
+        初始化Mock服务器
+        
+        :param host: 主机地址，默认从配置文件读取
+        :param port: 端口号，默认从配置文件读取（默认8899）
+        """
+        # 从配置文件读取默认值
+        mock_config = config.get('mock_server', {})
+        self.host = host or mock_config.get('host', 'localhost')
+        self.port = port or mock_config.get('port', 8899)
         self.server = None
         self.thread = None
 
@@ -232,7 +241,7 @@ class MockServer:
         self.thread = threading.Thread(target=self.server.serve_forever)
         self.thread.daemon = True
         self.thread.start()
-        log.info(f"Mock server started at http://{self.host}:{self.port}")
+        log.info(f"模拟服务器启动于 http://{self.host}:{self.port}")
 
     def stop(self):
         if self.server:
@@ -242,7 +251,7 @@ class MockServer:
             self.server.server_close()
             if self.thread:
                 self.thread.join(timeout=5)
-            log.info("Mock server stopped")
+            log.info("Mock server 已停止")
 
     def set_mock_response(self, path, response):
         """
@@ -273,6 +282,14 @@ class MockServer:
 
     def clear_mock_responses(self):
         MockHandler.clear_mock_responses()
+    
+    def get_base_url(self):
+        """
+        获取Mock服务器的基础URL
+        
+        :return: 基础URL字符串，例如 'http://localhost:8899'
+        """
+        return f"http://{self.host}:{self.port}"
 
 
 class UnitTestMock:
@@ -326,7 +343,7 @@ class UnitTestMock:
         with self._lock:
             if name in self.mocks:
                 del self.mocks[name]
-                log.debug(f"Mock '{name}' removed")
+                log.debug(f"已删除模拟'{name}'")
 
     def clear_all_mocks(self):
         """
@@ -335,7 +352,7 @@ class UnitTestMock:
         """
         with self._lock:
             self.mocks.clear()
-            log.debug("All mocks cleared")
+            log.debug("所有模拟均已清除")
 
     def patch_object(self, obj, attr, **kwargs):
         """
@@ -393,10 +410,10 @@ class UnitTestMock:
             if expected_calls:
                 mock_obj.assert_has_calls(expected_calls)
 
-            log.debug(f"Mock call verification passed")
+            log.debug(f"Mock调用验证成功")
             return True
         except AssertionError as e:
-            log.error(f"Mock call verification failed: {e}")
+            log.error(f"Mock调用验证失败: {e}")
             return False
 
     def get_call_history(self, mock_obj):
@@ -415,3 +432,25 @@ class UnitTestMock:
 
 mock_server = MockServer()
 mock_helper = UnitTestMock()
+
+"""
+使用示例 
+from common.mock import mock_server
+import httpx
+
+# 启动 Mock 服务器
+mock_server.start()
+
+# 设置模拟响应
+mock_server.set_mock_response('/api/users', {
+    'status_code': 200,
+    'body': {'users': [{'id': 1, 'name': 'Alice'}]}
+})
+
+# 发起请求测试
+response = httpx.get('http://localhost:8888/api/users')
+print(response.json())  # {'users': [{'id': 1, 'name': 'Alice'}]}
+
+# 停止 Mock 服务器
+mock_server.stop()
+"""

@@ -12,6 +12,7 @@ import hashlib
 import base64
 from config.config import config
 from common.log import log
+from push.template_manager import template_manager
 
 class DingTalkPush:
     def __init__(self):
@@ -27,17 +28,32 @@ class DingTalkPush:
         sign = base64.b64encode(hmac_code).decode('utf-8')
         return timestamp, sign
     
-    def send(self, content):
+    def send(self, content=None, variables=None):
+        """
+        发送钉钉消息
+        
+        :param content: 直接发送的内容（兼容旧接口）
+        :param variables: 变量字典，用于渲染模板
+        :return: bool
+        """
         if not self.webhook:
             log.warning("钉钉webhook未配置")
+            return False
+        
+        # 如果提供了 variables，使用模板渲染
+        if variables:
+            content = template_manager.render('dingtalk', variables)
+        elif not content:
+            log.warning("钉钉消息内容为空")
             return False
         
         try:
             headers = {'Content-Type': 'application/json'}
             data = {
-                "msgtype": "text",
-                "text": {
-                    "content": content
+                "msgtype": "markdown",
+                "markdown": {
+                    "title": variables.get('title', '测试报告') if variables else '测试报告',
+                    "text": content
                 }
             }
             
