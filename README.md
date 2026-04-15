@@ -93,13 +93,16 @@ pip install -r requirements.txt
 - `retry_interval`: 重试间隔（秒）
 - `thread_count`: 线程数
 
-### 项目信息配置（新增）
+### 项目信息配置
 ```yaml
 project:
-  name: "API自动化测试项目"  # 项目名称
-  environment: "测试环境"      # 运行环境
-  executor: ""                 # 执行人（留空则显示“🤖 自动触发”）
+  name: "API自动化测试项目"   # 项目名称
+  environment: "test"         # 运行环境：test(测试)/uat(预发布)/prod(生产)
+  executor: ""                # 执行人（留空则显示"🤖 自动触发"）
+  title: "API自动化测试报告"   # 测试报告标题（用于HTML报告和消息推送）
 ```
+
+**注意**：`title` 字段统一控制 HTML 报告标题和消息推送中的报告标题。
 
 ### Mock 服务配置（新增）
 ```yaml
@@ -111,16 +114,14 @@ mock_server:
 ### 测试报告配置
 ```yaml
 reports:
-  allure: true                    # 是否生成 Allure 报告
+  allure: false                   # 是否生成 Allure 报告
   html: true                      # 是否生成 HTML 报告
   report_url: "https://example.com/reports/html/report.html"  # 报告访问地址（可选）
   pytest_xhtml:
     css: []                       # 自定义 CSS 文件列表
   xtestrunner:
-    title: "API自动化测试报告"     # 报告标题
-    description: "测试报告模板"    # 报告描述
-    tester: "测试人员"            # 测试人员
-    language: "zh-CN"             # 语言
+    description: "API自动化测试报告"  # 报告描述
+    language: "zh-CN"             # 语言：zh-CN(中文) / en(英文)
     retry: 0                      # 重试次数
 ```
 
@@ -128,6 +129,11 @@ reports:
 - 用于消息推送中的报告链接
 - 如果不配置，将自动使用 `base_url + /reports/html/report.html`
 - 建议配置为实际的报告服务器地址，如 CI/CD 平台的报告 URL
+
+**title 配置说明**：
+- 报告标题已从 `reports.xtestrunner.title` 移动到 `project.title`
+- 统一控制 XTestRunner HTML 报告标题和所有消息推送中的报告标题
+- 修改一处即可同时影响所有地方
 
 ## 运行测试
 
@@ -455,6 +461,26 @@ wecom:
 
 详细使用说明请参考：[push/TEMPLATES_GUIDE.md](push/TEMPLATES_GUIDE.md)
 
+## 配置示例
+
+项目提供了完整的配置示例文件 `config/config.example.yaml`，包含：
+- ✅ 所有配置项的详细说明
+- ✅ 合理的默认值
+- ✅ 安全建议（敏感信息使用占位符）
+- ✅ 最佳实践指南
+
+**快速开始**：
+```bash
+# 复制示例文件
+cp config/config.example.yaml config/config.yaml
+
+# 编辑配置文件，根据实际情况修改
+# 然后运行测试
+python main.py
+```
+
+详细配置说明请参考：[config/config.example.yaml](config/config.example.yaml)
+
 ## 注意事项
 
 1. **Allure 工具**：项目已内置 Allure，无需系统安装。如需使用系统版本，确保其在 PATH 中
@@ -463,7 +489,10 @@ wecom:
 4. **多线程执行**：可能会影响测试稳定性，建议根据实际情况调整线程数
 5. **Mock 启用控制**：通过 `_enable_mock = False` 可以禁用特定测试类的 Mock 服务
 6. **URL 管理**：推荐使用 `mock_helper` 辅助函数，避免硬编码 URL
-7. **执行人配置**：在 `config.yaml` 中配置 `project.executor`，留空则显示“🤖 自动触发”
+7. **执行人配置**：在 `config.yaml` 中配置 `project.executor`，留空则显示"🤖 自动触发"
+8. **报告标题**：统一使用 `project.title` 配置，同时影响 HTML 报告和消息推送
+9. **邮件端口**：QQ 邮箱使用端口 587（STARTTLS），如需使用 SSL 请改为端口 465
+10. **配置示例**：首次使用建议参考 `config/config.example.yaml` 文件
 
 ## 联系方式
 
