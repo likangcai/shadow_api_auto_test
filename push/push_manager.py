@@ -197,6 +197,7 @@ class PushManager:
         project_name = project_config.get('name', 'API自动化测试项目')
         environment = project_config.get('environment', '测试环境')
         executor = project_config.get('executor', '').strip()
+        report_title = project_config.get('title', 'API自动化测试报告')
         
         # 如果执行人为空，则显示“自动触发”
         if not executor:
@@ -213,7 +214,7 @@ class PushManager:
             'environment': environment,
             'executor': executor,
             'start_time': start_time_str,
-            'title': subject or 'API自动化测试报告',
+            'title': subject or report_title,  # 优先使用传入的subject，否则使用配置文件的title
             'total': total,
             'passed': passed,
             'failed': failed,

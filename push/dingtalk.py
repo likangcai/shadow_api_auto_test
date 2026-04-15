@@ -52,7 +52,7 @@ class DingTalkPush:
             data = {
                 "msgtype": "markdown",
                 "markdown": {
-                    "title": variables.get('title', '测试报告') if variables else '测试报告',
+                    "title": f"📊 {variables.get('title', '测试报告') if variables else '测试报告'}",
                     "text": content
                 }
             }

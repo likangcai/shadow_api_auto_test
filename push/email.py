@@ -32,9 +32,21 @@ class EmailPush:
             
             msg.attach(MIMEText(content, 'html', 'utf-8'))
             
-            with smtplib.SMTP_SSL(self.smtp_server, self.smtp_port) as server:
-                server.login(self.sender, self.password)
-                server.send_message(msg)
+            # 根据端口选择连接方式
+            if self.smtp_port == 465:
+                # SSL 连接
+                with smtplib.SMTP_SSL(self.smtp_server, self.smtp_port) as server:
+                    server.login(self.sender, self.password)
+                    server.send_message(msg)
+            else:
+                # STARTTLS 连接（端口 587 或其他）
+                with smtplib.SMTP(self.smtp_server, self.smtp_port) as server:
+                    server.ehlo()
+                    server.starttls()
+                    server.ehlo()
+                    server.login(self.sender, self.password)
+                    server.send_message(msg)
+            
             log.info("邮件发送成功")
             return True
         except Exception as e:

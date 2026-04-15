@@ -2,12 +2,13 @@
 
 # 项目信息配置
 project:
-  name: "API自动化测试项目"  # 项目名称
-  environment: "uat"      # 运行环境（测试环境/预发布环境/生产环境）
-  executor: "影子"         # 执行人（留空则为自动触发）
+  name: "API自动化测试项目"   # 项目名称
+  environment: "uat"       # 运行环境（测试环境/预发布环境/生产环境）
+  executor: "影子"          # 执行人（留空则为自动触发）
+  title: "API自动化测试报告"  # 测试报告标题（用于HTML报告和消息推送）
 
 # 基础API配置
-base_url: "https://www.httpbin.org"
+base_url: "https://www.httpbin.org"  # 基础API地址
 timeout: 30
 verify_ssl: false
 test_runner: "pytest"  # pytest / unittest / mixed (混合模式)
@@ -17,44 +18,39 @@ thread_count: 2  # 线程数
 
 # Mock服务配置
 mock_server:
-  host: "localhost"
+  host: "localhost"  # Mock服务器地址，默认localhost
   port: 8899  # Mock服务器端口，默认8899
 
 # 测试报告配置
 reports:
-  allure: true
+  allure: false
   html: true
-  # 报告访问地址（可选，用于消息推送中的链接）
-  # 如果不配置，将使用 base_url + /reports/html/report.html
-  report_url: "./reports/html/report.html"
+  # 报告访问地址（可选，用于消息推送中的链接），如果不配置，将使用 base_url + /reports/html/report.html
+  report_url: "https://www.baidu.com/"
   # pytest-xhtml插件配置
   pytest_xhtml:
     css: []
   # XTestRunner配置
   xtestrunner:
-    # 测试报告标题
-    title: "API自动化测试报告"
-    # 测试报告描述
-    description: "测试报告模板XTestRunner"
-    # 语言
-    language: "zh-CN"
-    # 重试次数
-    retry: 0
+    description: "测试报告模板XTestRunner"  # 测试报告描述
+    language: "zh-CN"  # 语言
+    retry: 0  # 重试次数
 
 # 消息推送开关配置
 push:
   email: false
-  dingtalk: true
+  dingtalk: false
   feishu: false
   wecom: false
 
 # 邮件推送详细配置
 email:
-  smtp_server: "smtp.example.com"
-  smtp_port: 465
-  sender: "test@example.com"
-  password: "your_password"
-  recipients: ["user1@example.com", "user2@example.com"]
+  smtp_server: "smtp.qq.com"  # SMTP服务器配置
+  smtp_port: 587  # SMTP服务器端口
+  sender: "yingzilkc@qq.com"  # 发送方邮箱
+  password: "frsakdzvwmpzijfh"  # 邮箱授权码
+  # 接收方邮箱
+  recipients: "yingzilkq@163.com", "1478136497@qq.com"]
 
 # 钉钉机器人推送配置
 dingtalk:
@@ -63,8 +59,8 @@ dingtalk:
 
 # 飞书机器人推送配置
 feishu:
-  webhook: "https://open.feishu.cn/open-apis/bot/v2/hook/your_token"
+  webhook: "https://open.feishu.cn/open-apis/bot/v2/hook/9b69b36b-0f2d-4ac9-a6a6-71cea22ded38"
 
 # 企业微信机器人推送配置
 wecom:
-  webhook: "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=your_key"
+  webhook: "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=48249e1d-daad-4b43-b34b-62b9bbbaa959"

@@ -34,13 +34,13 @@ class FeiShuPush:
             return False
         
         try:
-            headers = {'Content-Type': 'application/json'}
+            headers = {'Content-Type': 'application/json; charset=utf-8'}
             data = {
                 "msg_type": "post",
                 "content": {
                     "post": {
                         "zh_cn": {
-                            "title": variables.get('title', '测试报告') if variables else '测试报告',
+                            "title": f"📊 {variables.get('title', '测试报告') if variables else '测试报告'}",
                             "content": [
                                 [
                                     {
